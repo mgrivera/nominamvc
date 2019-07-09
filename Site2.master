@@ -1,0 +1,114 @@
+﻿<%@ Master Language="C#" CodeBehind="Site2.master.cs" Inherits="ControlVentas.Site2" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Nómina</title>
+
+    <link href="~/Site.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/general.css" rel="stylesheet" />
+    <%-- styles para el GridView control --%>
+    <%--el parámetro es, simplemente, para que el browser no cache este file; browsers do not cache uri with parameters ...--%> 
+    <link href="Styles/GridViewStyles/styles2.css?" rel="stylesheet" />
+    <link href="Styles/tables.css" rel="stylesheet" />
+
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+
+
+    <%--<div class="DDNavigation">
+        <a id="A1" runat="server" 
+            href="~/Default.aspx"><img id="Img1" 
+            alt="Back to home page" 
+            runat="server" 
+            src="DynamicData/Content/Images/back.gif" />Regresar a la página principal
+        </a>
+    </div>--%>
+
+    <form id="form1" runat="server">
+        
+
+         <%--<div>
+            <span>
+                User information here ... 
+                <asp:LoginName ID="LoginName1" runat="server" />
+                &nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
+                <asp:LoginStatus ID="LoginStatus1" runat="server" />
+            </span>
+       
+        </div>--%>
+
+        <div style="background-color: #F8F8F8; width: 98%; height: 70px; padding-left: 25px; vertical-align: middle; ">
+            <table style="width: 100%; ">
+                <tr>
+                    <td style="width: 50%; ">
+                        <p style="color: #777777; font-size: x-large; font-style: italic; padding-top: 17px; padding-left: 35px;">
+                            Nómina <span style="font-size: medium">(v0.1)</span>
+                        </p>
+                    </td>
+                    <td style="width: 35%; vertical-align: middle; text-align: right; padding-right: 25px; color: white;">
+                        <div style="font-size: small; ">
+                            <asp:UpdateProgress ID="UpdateProgress1" runat="server" DisplayAfter="0" DynamicLayout="True">
+                                <ProgressTemplate>
+                                    <span style="margin-right: 15px;">
+                                        <img id="Img1" runat="server" alt="...loading" src="Pictures/img/animated1.gif" />
+                                    </span>
+                                </ProgressTemplate>
+                            </asp:UpdateProgress>
+                         </div>
+                    </td>
+                    <td style="width: 15%; vertical-align: middle; text-align: right; padding-right: 25px; color: white;">
+                        <div style="font-size: small; ">
+                            <span>
+                                <asp:LoginName ID="LoginName1" runat="server"  ForeColor="#777777" />
+                                &nbsp;&nbsp;&nbsp;
+                                <asp:LoginStatus ID="LoginStatus1" runat="server" ForeColor="#777777"/>
+                                &nbsp;&nbsp;&nbsp;
+                                <asp:HyperLink Text="?" 
+                                               runat="server" 
+                                               id="Help_HyperLink" 
+                                               Target="_blank">
+                                </asp:HyperLink>
+                            </span>
+                         </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="background-color: #465B70; width: 98%; height: 25px; padding-left: 25px; padding-top: 6px;  ">
+            <asp:Menu ID="Menu1" 
+                  runat="server" 
+                  DataSourceID="SiteMapDataSource1" 
+                  StaticSubMenuIndent="16px" 
+                  Orientation="Horizontal" 
+                  StaticDisplayLevels="2" 
+                  ForeColor="White" OnMenuItemDataBound="MainMenu_MenuItemDataBound">
+                <StaticMenuItemStyle BackColor="#465B70"  /> 
+                <DynamicMenuItemStyle BackColor="#465B70" BorderColor="#394E63" BorderWidth="1px" HorizontalPadding="15px" /> 
+            </asp:Menu>
+        </div>
+
+        <div>
+            <%-- TODO: Enable partial rendering by setting the EnablePartialRendering attribute to "true" to provide a smoother browsing experience.
+                 Leaving partial rendering disabled will provide a better debugging experience while the application is in development. --%>
+            <%--<asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true"/>--%>
+            <ajaxToolkit:ToolkitScriptManager ID="ToolkitScriptManager1" 
+                                              runat="server" 
+                                              EnablePartialRendering="true" 
+                                              CombineScripts="true" 
+                                              AsyncPostBackTimeout="7200"/>
+        
+            <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+        <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+
+    </form>
+</body>
+</html>
+

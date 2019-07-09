@@ -1,0 +1,425 @@
+@{
+    ViewBag.Title = "ARCs de empleados";
+}
+
+<div ng-app="myApp" ng-controller="MainController">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-11 col-sm-offset-1">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+                    <!-- nótese lo que sigue pues muchas veces viene html en el mensaje (ej: errores: error1<br />error2 ... ) -->
+                    <span ng-bind-html="alert.msg | unsafe"></span>
+                </alert>
+
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3 col-sm-offset-1">
+                <h4 style="font-style: italic; ">ARCs de empleados</h4>
+            </div>
+            <div class="col-sm-4" style="text-align: center; vertical-align: middle; ">
+                <i style="color: #428BCA" class="fa fa-circle-o-notch fa-spin fa-2x" ng-show="showProgress"></i>
+            </div>
+            <div id="nombreCiaSeleccionada_Div"
+                 style="text-align: right; font-size: small; color: #004080; font-style: italic; "
+                 class="col-sm-4">
+                <span style="padding-right: 15px; ">{{ ciaContabSeleccionada.nombre }}</span>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-11">
+                <div class="col-sm-6">
+                    <div>
+                        <dir-pagination-controls boundary-links="true"
+                                                 template-url="~/Scripts/angular/directives/pagination/dirPagination.tpl.html"
+                                                 class="navigation-bar">
+                        </dir-pagination-controls>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </span>
+                        <input ng-model="filterUser"
+                               class="form-control"
+                               type="text"
+                               placeholder="buscar ..." />
+                    </div>
+                </div>
+                <div class="col-sm-2" style="padding-right: 0; padding-left: 0; ">
+                </div>
+                <div class="col-sm-1" style="padding-right: 0; ">
+                    <div class="input-group input-group-sm" style="text-align: right; width: 100%; ">
+                        <input type="number" min="1" max="1000" 
+                               class="form-control pull-right" 
+                               ng-model="pageSize">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-1 left-side-bar" style="padding: 15px; border: solid 1px lightgray; text-align: center; ">
+
+                <a href='#'
+                   ng-click="openConsultarArcsModal('md')">
+                    <img src='/Pictures/filter_25x25.png' />
+                </a>
+                <br />
+                <a href='#'
+                   ng-click="openConsultarArcsModal('md')">
+                    Consultar ARCs de empleados
+                </a>
+
+                <br />
+                <hr />
+
+                <a href='#'
+                   ng-click="openConstruirArcsModal('md')">
+                    <img src='/Pictures/Gears_25x25.png' />
+                </a>
+                <br />
+                <a href='#'
+                   ng-click="openConstruirArcsModal('md')">
+                    Constuir ARCs de empleados
+                </a>
+
+                <br />
+                <hr />
+
+                <a href='#'
+                   ng-click="openConvertirWordModal('md')">
+                    <img src='/Pictures/MailMerge_25x25.png' />
+                </a>
+                <br />
+                <a href='#'
+                   ng-click="openConvertirWordModal('md')">
+                    Convertir<br />a Word
+                </a>
+
+                <br />
+                <hr />
+
+            </div>
+
+            <div class="col-sm-11">
+
+                <form name="myForm" ng-submit="submitMyForm()" novalidate>
+
+                    <table class="table table-condensed table-striped table-bordered table-hover table-responsive">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center; ">Año</th>
+                                <th style="text-align: left; ">Empleado</th>
+                                <th style="text-align: center; ">Cant<br />meses</th>
+                                <th style="text-align: right; ">Remuneración</th>
+                                <th style="text-align: right; ">Sso</th>
+                                <th style="text-align: right; ">Islr</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="arc in listaResumenesArc | filter:filterUser | orderBy:'nombre' | itemsPerPage: pageSize"
+                                current-page="currentPage"> 
+
+                                <td style="text-align: center; "><span> {{ arc.ano }}</span></td>
+                                <td><a href="#" ng-click="openMostrarDetallesArcEmpleadoModal('lg', arc.id)"><span> {{ arc.nombre }}</span></a></td>
+                                <td style="text-align: center; "><span> {{ arc.cantMeses }}</span></td>
+                                <td style="text-align: right; "><span> {{ arc.remuneracion  | number:2 }}</span></td>
+                                <td style="text-align: right; "><span> {{ arc.sso  | number:2 }}</span></td>
+                                <td style="text-align: right; "><span> {{ arc.islr  | number:2 }}</span></td>
+
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="font-weight: bold; "> 
+                                <td colspan="3" /> 
+                                <td style="text-align: right; "><span> {{ arcEmpleados_Totales.remuneracion  | number:2 }}</span></td>
+                                <td style="text-align: right; "><span> {{ arcEmpleados_Totales.sso  | number:2 }}</span></td>
+                                <td style="text-align: right; "><span> {{ arcEmpleados_Totales.islr  | number:2 }}</span></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- --------------------------------------------------------------------------- -->
+    <!-- modal para permitir al usuario construir los arcs de un año en particular   --> 
+    <script type="text/ng-template" id="construirArcEmpleadosModal.html">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Agregar ARCs de empleados</h4>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" style="font-size: small; ">
+                            <span ng-bind-html="alert.msg | unsafe"></span>
+                        </alert>
+                    </div>
+                </div>
+            </div>
+
+            <form name="agregarArcsModalForm"
+                  id="agregarArcsModalForm"
+                  class="form-horizontal"
+                  role="form"
+                  style="font-size: small; "
+                  novalidate
+                  ng-submit="agregarArcsModalForm_Submit()">
+
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <div class="form-group form-group-sm">
+                                <label for="anoInput" class="col-sm-2 control-label">Año:&nbsp;&nbsp;</label>
+                                <div class="col-sm-10">
+                                    <input type="number"
+                                           class="form-control"
+                                           id="anoInput"
+                                           ng-model="ano"
+                                           name="ano"
+                                           max="2030" min="2000"
+                                           required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="modal-footer">
+                <!-- nótese como hacemos el submit desde afuera de la forma ... -->
+                <input class="btn btn-primary" type="submit" value="Ok" form="agregarArcsModalForm">
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+    </script>
+
+
+
+    <!-- ------------------------------------------------------------------------------ -->
+    <!-- modal para permitir al usuario consultar los arcs de un año en particular  ... -->
+    <script type="text/ng-template" id="consultarArcEmpleadosModal.html">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Consultar ARCs de empleados</h4>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" style="font-size: small; ">
+                            <!-- nótese lo que sigue pues muchas veces viene html en el mensaje (ej: errores: error1<br />error2 ... ) -->
+                            <span ng-bind-html="alert.msg | unsafe"></span>
+                        </alert>
+                    </div>
+                </div>
+            </div>
+
+            <form name="consultarArcsModalForm"
+                  id="consultarArcsModalForm"
+                  class="form-horizontal"
+                  role="form"
+                  style="font-size: small; "
+                  novalidate
+                  ng-submit="consultarArcsModalForm_Submit()">
+
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <div class="form-group form-group-sm">
+                                <label>Años:</label>
+                                <div>
+                                    <select size="8"
+                                            multiple
+                                            class="form-control input-sm"
+                                            ng-model="ano"
+                                            ng-options="ano for ano in listaAnos"
+                                            required
+                                            style="height: auto; "></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="modal-footer">
+                <!-- nótese como hacemos el submit desde afuera de la forma ... -->
+                <input class="btn btn-primary" type="submit" value="Ok" form="consultarArcsModalForm">
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+    </script>
+
+
+
+    <!-- --------------------------------------------------------------------------- -->
+    <!-- modal para mostrar detalles del empleado                                ... -->
+    <script type="text/ng-template" id="consultarDetallesArcEmpleadosModal.html">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Arc para {{ arcEmpleadoSeleccionado.Nombre }} en el año {{ arcEmpleadoSeleccionado.Ano }}</h4>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" style="font-size: small; ">
+                            <!-- nótese lo que sigue pues muchas veces viene html en el mensaje (ej: errores: error1<br />error2 ... ) -->
+                            <span ng-bind-html="alert.msg | unsafe"></span>
+                        </alert>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-condensed table-striped table-bordered table-hover table-responsive">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center; ">Mes</th>
+                                <th style="text-align: left; ">Mes</th>
+                                <th style="text-align: right; ">Remuneración</th>
+                                <th style="text-align: right; ">Sso</th>
+                                <th style="text-align: right; ">Islr</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="mes in arcEmpleadoSeleccionado.MontosMensuales | orderBy:'Mes'">
+
+                                <td style="text-align: center; "><span> {{ mes.Mes }}</span></td>
+                                <td style="text-align: left; "><span> {{ nombreMes(mes.Mes) }}  </span></td>
+                                <td style="text-align: right; "><span> {{ mes.Remuneracion  | number:2 }}</span></td>
+                                <td style="text-align: right; "><span> {{ mes.Sso  | number:2 }}</span></td>
+                                <td style="text-align: right; "><span> {{ mes.Islr  | number:2 }}</span></td>
+
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr style="font-weight: bold; ">
+                                <td colspan="2" />
+                                <td style="text-align: right; "><span> {{ arcEmpleadoSeleccionado_totales.remuneracion  | number:2 }}</span></td>
+                                <td style="text-align: right; "><span> {{ arcEmpleadoSeleccionado_totales.sso  | number:2 }}</span></td>
+                                <td style="text-align: right; "><span> {{ arcEmpleadoSeleccionado_totales.islr  | number:2 }}</span></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="cancel()">Cerrar</button>
+            </div>
+    </script>
+
+
+
+
+    <!-- --------------------------------------------------------------------------- -->
+    <!-- modal para convertir los resultados a un documento Excel -->                     
+    <script type="text/ng-template" id="convertirWordModal.html">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="cancel()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Convertir a Microsoft Word</h4>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" style="font-size: small; ">
+                            <!-- nótese lo que sigue pues muchas veces viene html en el mensaje (ej: errores: error1<br />error2 ... ) -->
+                            <span ng-bind-html="alert.msg | unsafe"></span>
+                        </alert>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" style="text-align: center; vertical-align: middle; ">
+                        <i style="color: #428BCA" class="fa fa-circle-o-notch fa-spin fa-2x" ng-show="showProgress"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-5">
+                    <form id="convertirWordForm" 
+                          name="convertirWordForm" 
+                          role="form"
+                          ng-submit="convertirWordForm_Submit()" 
+                          novalidate>
+                        <div class="form-group form-group-sm">
+                            <label>Plantillas Word:</label>
+                            <div>
+                                <select class="form-control input-sm"
+                                        ng-model="plantillaWord"
+                                        ng-options="plantillaWord for plantillaWord in listaPlantillasWord"
+                                        required
+                                        style="height: auto; ">
+                                    <option value="">-- seleccione una plantilla --</option>
+                                </select>
+                            </div>
+                        </div>
+                    <form>
+                </div>
+
+                <div class="col-sm-6 col-sm-offset-1" style="text-align: left; ">
+                    <button class="btn btn-link" type="submit" 
+                            form="convertirWordForm">
+                        1) Construir
+                    </button>
+                    <br />
+                    <button class="btn btn-link" ng-click="downloadDocumentoWord()">2) Obtener (download)</button>
+                </div>
+            </div>
+
+
+            <div class="modal-footer">
+                <button class="btn btn-warning" ng-click="cancel()">Cerrar</button>
+            </div>
+    </script>
+
+</div>
+
+
+<script src="~/Scripts/code/arcEmpleados/arcEmpleados.js"></script>
+

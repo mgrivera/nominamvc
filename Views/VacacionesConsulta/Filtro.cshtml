@@ -1,0 +1,79 @@
+﻿@model NominaASP.ViewModels.VacacionesConsulta.Filtro
+
+@{
+    ViewBag.Title = "Filtro";
+}
+
+@using (Html.BeginForm("Filtro", "VacacionesConsulta", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div>
+        <h4 style="color: #428BCA; ">Indique su criterio de selección y haga un click en <em>Aplicar filtro</em></h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FechaConsulta, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.FechaConsulta, new { @class = "form-control datefield", type = "date" })
+                @Html.ValidationMessageFor(model => model.FechaConsulta)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Departamento, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Departamento, Model.Departamentos, "Seleccione un departamento", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Departamento)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EstadoEmpleado, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.EstadoEmpleado, Model.EstadosEmpleados, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.EstadoEmpleado)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Empleado, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Empleado, Model.Empleados, "Seleccione un empleado", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Empleado)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-md-10">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(model => model.MostrarUltimoItemCadaEmpleado)
+                        Mostrar solo el último registro para cada empleado
+                    </label>
+                    @Html.ValidationMessageFor(model => model.MostrarUltimoItemCadaEmpleado)
+                </div>
+                
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10" style="text-align: right; ">
+                <div style="width: 280px;">
+                    <!-- los controles arriba tienen ese width; queremos lograr que el botón quede alineado a la derecha ... -->
+                    <input type="submit" value="Aplicar filtro" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("... regresar sin aplicar un filtro", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

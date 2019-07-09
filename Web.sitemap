@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+
+  <siteMapNode url="~/default.aspx" title="Home"  description="Regreso al home page ..." roles="*">
+
+    <siteMapNode url="" title="Empleados"  description="Empleados de la nómina"  roles="*">
+      <siteMapNode url="~/Empleados/Consulta/EmpleadosConsulta.aspx" title="Consulta"  description="Consulta de empleados"/>
+      <siteMapNode url="~/Empleados/Faltas/EmpleadosFaltasConsulta.aspx" title="Faltas"  description="Consulta de faltas de empleados"/>
+      <siteMapNode url="~/Empleados/Vacaciones/DiasVacaciones.aspx" title="Días vacaciones"  description="Consulta de días de vacaciones"/>
+      <siteMapNode url="~/VacacionesConsulta" title="Días vacaciones (2)"  description="Consulta de días pendientes de vacaciones"/>
+    </siteMapNode>
+
+    <siteMapNode url="" title="Nómina"  description="Procesos relacionados con la obtención de la nómina"  roles="*">
+      <siteMapNode url="~/Nomina/Nomina/Nomina.aspx" title="Nómina"  description="Ejecución de la nómina y procesos relacionados"/>
+      <siteMapNode url="~/Nomina/Consulta/Nomina.aspx" title="Consulta de nómina"  description="Para consultar nóminas previamente obtenidas"/>
+      <siteMapNode url="~/Nomina/PrestacionesSociales/PrestacionesSociales.aspx" title="Prestaciones sociales"  description="Cálculo y consulta de las prestaciones sociales de empleados"/>
+      <siteMapNode url="~/Nomina/AsientosContables/AsientosContables.aspx" title="Asientos contables"  description="Para construír, en forma automática, el asiento contable de una nómina"/>
+      <siteMapNode url="~/ArcEmpleados" title="ARCs"  description="Para construír y consultar Arcs de empleados"/>
+    </siteMapNode>
+
+    <siteMapNode url="" title='Generales'  description="Procesos genéricos"  roles="*">
+      <siteMapNode url="~/Generales/SeleccionarCiaContab/SeleccionarCiaContab.aspx" title="Seleccionar Cia Contab"  description="Para seleccionar una Cia Contab"/>
+      <siteMapNode url="http://localhost:3000"  title="contab2"  description="Para abrir contabm" target="_blank" />
+    </siteMapNode>
+
+    <siteMapNode url="" title="Otros"  description="" roles="*">
+      <siteMapNode url="~/ControlAcceso/Publico/CambiarPassword.aspx" title="Cambiar password"  description="Para cambiar el password actual del usuario" />
+      <siteMapNode url="" title="Control de acceso"  description="Para mantener el control de acceso de los usuarios a las opciones de la aplicación" roles="Administradores">
+        <siteMapNode url="~/ControlAcceso/Administracion/AgregarUsuario.aspx" title="Agregar/actualizar usuarios"  description="Agregar/actualizar usuarios" />
+        <siteMapNode url="~/ControlAcceso/Administracion/Roles.aspx" title="Agregar/actualizar roles"  description="Agregar/actualizar roles" />
+        <siteMapNode url="~/ControlAcceso/Administracion/AsociarRolesUsuarios.aspx" title="Asociar roles y usuarios"  description="Asociar roles y usuarios" />
+      </siteMapNode>
+    </siteMapNode>
+
+  </siteMapNode>
+  
+</siteMap>

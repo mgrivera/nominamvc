@@ -1,0 +1,1194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1CC8B829-746B-48A6-AB2C-F5443BC23E26}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NominaASP</RootNamespace>
+    <AssemblyName>NominaASP</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>..\packages\AjaxControlToolkit.7.1213\lib\45\AjaxControlToolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="AjaxMin">
+      <HintPath>..\packages\AjaxMin.4.97.4951.28483\lib\net40\AjaxMin.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.jQuery, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AspNet.ScriptManager.jQuery.2.1.0\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.jQuery.UI.Combined, Version=1.10.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AspNet.ScriptManager.jQuery.UI.Combined.1.10.4\lib\net45\AspNet.ScriptManager.jQuery.UI.Combined.dll</HintPath>
+    </Reference>
+    <Reference Include="Bullzip.PDFWriter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=041d71cacb6e853c, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ClosedXML">
+      <HintPath>..\packages\ClosedXML.0.69.2\lib\net40-client\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DocumentFormat.OpenXml.1.0\lib\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlAgilityPack">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.Edm.5.2.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.OData.5.2.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.WindowsAzure.Configuration">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.8.0.0\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage">
+      <HintPath>..\packages\WindowsAzure.Storage.2.1.0.4\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\packages\mongocsharpdriver.1.10.0\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\packages\mongocsharpdriver.1.10.0\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.Doc">
+      <HintPath>..\packages\FreeSpire.Doc.5.1\lib\net40\Spire.Doc.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.License">
+      <HintPath>..\packages\FreeSpire.Doc.5.1\lib\net40\Spire.License.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.Pdf">
+      <HintPath>..\packages\FreeSpire.Doc.5.1\lib\net40\Spire.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Spatial, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.Spatial.5.2.0\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.0.0\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.0.0\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.2\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.1.4.12333\lib\net40-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.1.4.12333\lib\net40-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.1.4.12333\lib\net40-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.1.4.12333\lib\net40-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.1.4.12333\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.1.4.12333\lib\net40-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Membership.OpenAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.Membership.OpenAuth.1.0.1\lib\net40\Microsoft.AspNet.Membership.OpenAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.FriendlyUrls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.0\lib\net40\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="About.aspx" />
+    <Content Include="Account\Login.aspx" />
+    <Content Include="Account\Manage.aspx" />
+    <Content Include="Account\OpenAuthProviders.ascx" />
+    <Content Include="Account\Register.aspx" />
+    <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="App_Data\localdbNomina.ldf">
+      <DependentUpon>localdbNomina.mdf</DependentUpon>
+    </Content>
+    <Content Include="App_Data\localdbNomina.mdf" />
+    <Content Include="borre\WebForm1.aspx" />
+    <Content Include="Content\mybootstrap.css" />
+    <Content Include="Content\SiteMvc.css" />
+    <Content Include="Contact.aspx" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\myMvcStyles.css" />
+    <Content Include="Content\myStyles.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\themes\base\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.menu.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.spinner.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\jquery.ui.tooltip.css" />
+    <Content Include="Content\themes\base\minified\images\animated-overlay.gif" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.menu.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.spinner.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="Empleados\Consulta\EmpleadosConsulta.aspx" />
+    <Content Include="Empleados\Faltas\EmpleadosFaltasConsulta.aspx" />
+    <Content Include="Empleados\Faltas\EmpleadosFaltas_OpcionesReporte.aspx" />
+    <Content Include="Empleados\Vacaciones\DiasVacaciones.aspx" />
+    <Content Include="Empleados\Vacaciones\DiasVacaciones_OpcionesReporte.aspx" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Generales\SeleccionarCiaContab\SeleccionarCiaContab.aspx" />
+    <Content Include="Images\accent.png" />
+    <Content Include="Images\bullet.png" />
+    <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\orderedList0.png" />
+    <Content Include="Images\orderedList1.png" />
+    <Content Include="Images\orderedList2.png" />
+    <Content Include="Images\orderedList3.png" />
+    <Content Include="Images\orderedList4.png" />
+    <Content Include="Images\orderedList5.png" />
+    <Content Include="Images\orderedList6.png" />
+    <Content Include="Images\orderedList7.png" />
+    <Content Include="Images\orderedList8.png" />
+    <Content Include="Images\orderedList9.png" />
+    <Content Include="Nomina\AsientosContables\AsientosContables.aspx" />
+    <Content Include="Nomina\AsientosContables\AsientosContables_ConstruccionAsientoContable.aspx" />
+    <Content Include="Nomina\AsientosContables\AsientoContable_Consulta.aspx" />
+    <Content Include="Nomina\Consulta\Nomina.aspx" />
+    <Content Include="Nomina\Consulta\OpcionesReporte.aspx" />
+    <Content Include="Nomina\Nomina\OpcionesReporte.aspx" />
+    <Content Include="Nomina\Nomina\Nomina_ConstruccionTextFiles.aspx" />
+    <Content Include="Nomina\Nomina\Nomina.aspx" />
+    <Content Include="Nomina\PrestacionesSociales\PrestacionesSociales_ObtencionTxtFile.aspx" />
+    <Content Include="Nomina\PrestacionesSociales\PrestacionesSociales.aspx" />
+    <Content Include="MostrarPdfWordFile.aspx" />
+    <Content Include="packages.config" />
+    <EntityDeploy Include="Models\NominaModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NominaModel.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>NominaASP.Models.Nomina</CustomToolNamespace>
+    </EntityDeploy>
+    <Content Include="Models\NominaModel.edmx.diagram">
+      <DependentUpon>NominaModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="MasterPage_Simple.Master" />
+    <Content Include="Pictures\arrow_right_13x11.png" />
+    <Content Include="Pictures\Delete.png" />
+    <Content Include="Pictures\Delete_Gray.png" />
+    <Content Include="Pictures\Disk.png" />
+    <Content Include="Pictures\download2_25x25.png" />
+    <Content Include="Pictures\Download_25x25.png" />
+    <Content Include="Pictures\email_25x25.png" />
+    <Content Include="Pictures\Excel_25x25.png" />
+    <Content Include="Pictures\filter_25x25.png" />
+    <Content Include="Pictures\first_16x16.gif" />
+    <Content Include="Pictures\Gears_25x25.png" />
+    <Content Include="Pictures\img\circle-ball-dark-antialiased.gif" />
+    <Content Include="Pictures\img\jquery.gif" />
+    <Content Include="Pictures\last_16x16.gif" />
+    <Content Include="Pictures\left_16x16.gif" />
+    <Content Include="Pictures\ListView_Buttons\add_14x14.png" />
+    <Content Include="Pictures\ListView_Buttons\check.jpg" />
+    <Content Include="Pictures\ListView_Buttons\check_fondogris.jpg" />
+    <Content Include="Pictures\ListView_Buttons\delete.jpg" />
+    <Content Include="Pictures\ListView_Buttons\delete_14x14.png" />
+    <Content Include="Pictures\ListView_Buttons\delete_fondogris.jpg" />
+    <Content Include="Pictures\ListView_Buttons\edit_14x14.png" />
+    <Content Include="Pictures\ListView_Buttons\ok_14x14.png" />
+    <Content Include="Pictures\ListView_Buttons\PgFirst.gif" />
+    <Content Include="Pictures\ListView_Buttons\PgLast.gif" />
+    <Content Include="Pictures\ListView_Buttons\PgNext.gif" />
+    <Content Include="Pictures\ListView_Buttons\PgPrev.gif" />
+    <Content Include="Pictures\ListView_Buttons\select.png" />
+    <Content Include="Pictures\ListView_Buttons\select1.gif" />
+    <Content Include="Pictures\ListView_Buttons\selected.png" />
+    <Content Include="Pictures\ListView_Buttons\selected1.gif" />
+    <Content Include="Pictures\ListView_Buttons\undo1_14x14.png" />
+    <Content Include="Pictures\MailMerge_25x25.png" />
+    <Content Include="Pictures\NewWindow_25x25.png" />
+    <Content Include="Pictures\PopupCloseButton.png" />
+    <Content Include="Pictures\print_25x25.png" />
+    <Content Include="Pictures\print_35x35.png" />
+    <Content Include="Pictures\right_16x16.gif" />
+    <Content Include="Pictures\SelectRow.png" />
+    <Content Include="ReportViewer.aspx" />
+    <EntityDeploy Include="Models\Contab\ContabModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ContabModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Contab\ContabModel.edmx.diagram">
+      <DependentUpon>ContabModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Scripts\angular\angular-locale_en-us.js" />
+    <Content Include="Scripts\angular\angular-locale_es.js" />
+    <Content Include="Scripts\angular\angular.min.js" />
+    <Content Include="Scripts\angular\directives\pagination\dirPagination.js" />
+    <Content Include="Scripts\angular\directives\pagination\dirPagination.tpl.html" />
+    <Content Include="Scripts\angular\dirPagination.js" />
+    <Content Include="Scripts\angular\dirPagination.tpl.html" />
+    <Content Include="Scripts\angular\ui-bootstrap\ui-bootstrap-tpls-0.12.0.min.js" />
+    <Content Include="Scripts\bootstrap-datepicker\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap-datepicker\datepicker3.css" />
+    <Content Include="Scripts\bootstrap-datepicker\locales\bootstrap-datepicker.es.js" />
+    <Content Include="Scripts\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Scripts\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Scripts\bootstrap\css\bootstrap.css" />
+    <Content Include="Scripts\bootstrap\css\bootstrap.min.css" />
+    <Content Include="Scripts\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Scripts\bootstrap\js\bootstrap.js" />
+    <Content Include="Scripts\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrap\js\npm.js" />
+    <Content Include="Scripts\code\arcEmpleados\arcEmpleados.js" />
+    <Content Include="Scripts\code\generic functions\browserType.js" />
+    <Content Include="Scripts\font-awesome-4.2.0\css\font-awesome.css" />
+    <Content Include="Scripts\font-awesome-4.2.0\css\font-awesome.min.css" />
+    <Content Include="Scripts\font-awesome-4.2.0\fonts\fontawesome-webfont.svg" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Models\Contab\Contab_Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Contab_Model.Context.cs</LastGenOutput>
+      <DependentUpon>ContabModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Contab\Contab_Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Contab_Model.cs</LastGenOutput>
+      <DependentUpon>ContabModel.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\LocalDb\LocaldbNominaModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LocaldbNominaModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\LocalDb\LocaldbNominaModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LocaldbNominaModel.edmx</DependentUpon>
+      <LastGenOutput>LocaldbNominaModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\LocalDb\LocaldbNominaModel.edmx.diagram">
+      <DependentUpon>LocaldbNominaModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\LocalDb\LocaldbNominaModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LocaldbNominaModel.edmx</DependentUpon>
+      <LastGenOutput>LocaldbNominaModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\bootstrap\css\bootstrap-theme.css.map" />
+    <Content Include="Scripts\bootstrap\css\bootstrap.css.map" />
+    <Content Include="Scripts\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Scripts\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Scripts\font-awesome-4.2.0\font-awesome-4.2.0.zip" />
+    <Content Include="Scripts\font-awesome-4.2.0\fonts\fontawesome-webfont.eot" />
+    <Content Include="Scripts\font-awesome-4.2.0\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Scripts\font-awesome-4.2.0\fonts\fontawesome-webfont.woff" />
+    <Content Include="Scripts\font-awesome-4.2.0\fonts\FontAwesome.otf" />
+    <Content Include="Scripts\font-awesome-4.2.0\less\bordered-pulled.less" />
+    <Content Include="Scripts\font-awesome-4.2.0\less\core.less" />
+    <Content Include="Scripts\font-awesome-4.2.0\less\fixed-width.less" />
+    <Content Include="Scripts\font-awesome-4.2.0\less\font-awesome.less" />
+    <Content Include="Scripts\font-awesome-4.2.0\less\icons.less" />
+    <Content Include="Scripts\font-awesome-4.2.0\less\larger.less" />
+    <Content Include="Scripts\font-awesome-4.2.0\less\list.less" />
+    <Content Include="Scripts\font-awesome-4.2.0\less\mixins.less" />
+    <Content Include="Scripts\font-awesome-4.2.0\less\path.less" />
+    <Content Include="Scripts\font-awesome-4.2.0\less\rotated-flipped.less" />
+    <Content Include="Scripts\font-awesome-4.2.0\less\spinning.less" />
+    <Content Include="Scripts\font-awesome-4.2.0\less\stacked.less" />
+    <Content Include="Scripts\font-awesome-4.2.0\less\variables.less" />
+    <Content Include="Scripts\font-awesome-4.2.0\scss\font-awesome.scss" />
+    <Content Include="Scripts\font-awesome-4.2.0\scss\_bordered-pulled.scss" />
+    <Content Include="Scripts\font-awesome-4.2.0\scss\_core.scss" />
+    <Content Include="Scripts\font-awesome-4.2.0\scss\_fixed-width.scss" />
+    <Content Include="Scripts\font-awesome-4.2.0\scss\_icons.scss" />
+    <Content Include="Scripts\font-awesome-4.2.0\scss\_larger.scss" />
+    <Content Include="Scripts\font-awesome-4.2.0\scss\_list.scss" />
+    <Content Include="Scripts\font-awesome-4.2.0\scss\_mixins.scss" />
+    <Content Include="Scripts\font-awesome-4.2.0\scss\_path.scss" />
+    <Content Include="Scripts\font-awesome-4.2.0\scss\_rotated-flipped.scss" />
+    <Content Include="Scripts\font-awesome-4.2.0\scss\_spinning.scss" />
+    <Content Include="Scripts\font-awesome-4.2.0\scss\_stacked.scss" />
+    <Content Include="Scripts\font-awesome-4.2.0\scss\_variables.scss" />
+    <EntityDeploy Include="Models\Users\UserModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>UserModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Users\UserModel.edmx.diagram">
+      <DependentUpon>UserModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Users\UserModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UserModel.Context.cs</LastGenOutput>
+      <DependentUpon>UserModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Users\UserModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UserModel.cs</LastGenOutput>
+      <DependentUpon>UserModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="config\connectionStrings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="config\appSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Models\NominaModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>NominaModel.Context.cs</LastGenOutput>
+      <DependentUpon>NominaModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\NominaModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>NominaModel.cs</LastGenOutput>
+      <DependentUpon>NominaModel.edmx</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery 2.1\jquery-2.1.0.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery 2.1\jquery-2.1.0.js" />
+    <Content Include="Scripts\jquery 2.1\jquery-2.1.0.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.4.js" />
+    <Content Include="Scripts\jquery-ui-1.10.4.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-3.1.0.debug.js" />
+    <Content Include="Scripts\knockout-3.1.0.js" />
+    <Content Include="Scripts\lodash\lodash.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Default.aspx" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Site.css" />
+    <Content Include="Styles\ajaxControlToolkit.css" />
+    <Content Include="Styles\tables.css" />
+    <Content Include="Styles\general.css" />
+    <Content Include="Styles\GridViewStyles\styles2.css" />
+    <Content Include="Temp\Nomina_RecibosPago_manuel.txt" />
+    <Content Include="Temp\PrestacionesSociales_manuel.txt" />
+    <Content Include="Temp\RecibosPago\RISK\trace.txt" />
+    <Content Include="ViewSwitcher.ascx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Site.Mobile.Master" />
+    <Content Include="Web.sitemap">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Word\ArcEmpleados\basica_manuel.docx" />
+    <Content Include="Word\ArcEmpleados\plantillas\basica.docx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Account\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="About.aspx.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="About.aspx.designer.cs">
+      <DependentUpon>About.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Manage.aspx.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Manage.aspx.designer.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\OpenAuthProviders.ascx.cs">
+      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\OpenAuthProviders.ascx.designer.cs">
+      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\RegisterExternalLogin.aspx.cs">
+      <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\RegisterExternalLogin.aspx.designer.cs">
+      <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="borre\WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="borre\WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Contab_Functions.cs" />
+    <Compile Include="Code\DocumentBuilder\DocumentBuilder.cs" />
+    <Compile Include="Code\DocumentBuilder\MarkupSimplifier.cs" />
+    <Compile Include="Code\DocumentBuilder\PtOpenXmlDocument.cs" />
+    <Compile Include="Code\DocumentBuilder\PtOpenXmlUtil.cs" />
+    <Compile Include="Code\DocumentBuilder\PtUtil.cs" />
+    <Compile Include="Code\DocumentBuilder\RevisionAccepter.cs" />
+    <Compile Include="Code\LimpiarFiltro.cs" />
+    <Compile Include="Code\KeepPageState.cs" />
+    <Compile Include="Code\Nomina.cs" />
+    <Compile Include="Code\Nomina_AsientoContable.cs" />
+    <Compile Include="Code\Nomina_FuncionesGenericas.cs" />
+    <Compile Include="Code\PdfFunctions.cs" />
+    <Compile Include="Code\PrestacionesSociales.cs" />
+    <Compile Include="Code\SendEmail.cs" />
+    <Compile Include="Code\TextReplacer.cs" />
+    <Compile Include="Contact.aspx.cs">
+      <DependentUpon>Contact.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contact.aspx.designer.cs">
+      <DependentUpon>Contact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\ArcEmpleadosController.cs" />
+    <Compile Include="Controllers\ArcEmpleadosWebApiController.cs" />
+    <Compile Include="Controllers\VacacionesConsultaController.cs" />
+    <Compile Include="Controllers\VacacionesConsultaWebApiController.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Empleados\Consulta\EmpleadosConsulta.aspx.cs">
+      <DependentUpon>EmpleadosConsulta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Empleados\Consulta\EmpleadosConsulta.aspx.designer.cs">
+      <DependentUpon>EmpleadosConsulta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Empleados\Consulta\Nomina_Report_ConsultaEmpleados.cs" />
+    <Compile Include="Empleados\Faltas\EmpleadosFaltasConsulta.aspx.cs">
+      <DependentUpon>EmpleadosFaltasConsulta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Empleados\Faltas\EmpleadosFaltasConsulta.aspx.designer.cs">
+      <DependentUpon>EmpleadosFaltasConsulta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Empleados\Faltas\EmpleadosFaltas_OpcionesReporte.aspx.cs">
+      <DependentUpon>EmpleadosFaltas_OpcionesReporte.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Empleados\Faltas\EmpleadosFaltas_OpcionesReporte.aspx.designer.cs">
+      <DependentUpon>EmpleadosFaltas_OpcionesReporte.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Empleados\Faltas\Nomina_Report_ConsultaFaltasEmpleados.cs" />
+    <Compile Include="Empleados\Vacaciones\DiasVacaciones.aspx.cs">
+      <DependentUpon>DiasVacaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Empleados\Vacaciones\DiasVacaciones.aspx.designer.cs">
+      <DependentUpon>DiasVacaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Empleados\Vacaciones\DiasVacaciones_OpcionesReporte.aspx.cs">
+      <DependentUpon>DiasVacaciones_OpcionesReporte.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Empleados\Vacaciones\DiasVacaciones_OpcionesReporte.aspx.designer.cs">
+      <DependentUpon>DiasVacaciones_OpcionesReporte.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Empleados\Vacaciones\Nomina_Objects_DiasVacaciones.cs" />
+    <Compile Include="Generales\SeleccionarCiaContab\SeleccionarCiaContab.aspx.cs">
+      <DependentUpon>SeleccionarCiaContab.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Generales\SeleccionarCiaContab\SeleccionarCiaContab.aspx.designer.cs">
+      <DependentUpon>SeleccionarCiaContab.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPage_Simple.Master.cs">
+      <DependentUpon>MasterPage_Simple.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPage_Simple.Master.designer.cs">
+      <DependentUpon>MasterPage_Simple.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Asiento.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Banco.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CambiosMoneda.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Compania.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contab\Asiento.cs">
+      <DependentUpon>Contab_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contab\AsientosNegativosId.cs">
+      <DependentUpon>Contab_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contab\Compania.cs">
+      <DependentUpon>Contab_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contab\ContabModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContabModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contab\Contab_Model.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Contab_Model.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contab\Contab_Model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Contab_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contab\CuentasContable.cs">
+      <DependentUpon>Contab_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contab\dAsiento.cs">
+      <DependentUpon>Contab_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contab\MesesDelAnoFiscal.cs">
+      <DependentUpon>Contab_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contab\Moneda.cs">
+      <DependentUpon>Contab_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contab\tGruposDeTiposDeAsiento.cs">
+      <DependentUpon>Contab_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contab\TiposDeAsiento.cs">
+      <DependentUpon>Contab_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Contab\UltimoMesCerradoContab.cs">
+      <DependentUpon>Contab_Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CuentasContable.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeduccionesISLR.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DeduccionesNomina.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DiasFeriado.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Empleados_Faltas.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Empleados_Sueldo.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LocalDb\LocaldbNominaModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocaldbNominaModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LocalDb\LocaldbNominaModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocaldbNominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LocalDb\LocaldbNominaModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocaldbNominaModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LocalDb\Vacaciones_DiasPendientes.cs">
+      <DependentUpon>LocaldbNominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Metadata.cs" />
+    <Compile Include="Models\MongoDB\ARCEmpleado.cs" />
+    <Compile Include="Models\MongoDB\vacaciones.cs" />
+    <Compile Include="Models\NominaModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NominaModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NominaModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NominaModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NominaModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Nomina_DefinicionAnticipos.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Nomina_DefinicionAnticipos_Empleados.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ParametrosNomina.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Parametros_Nomina_SalarioMinimo.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PrestacionesSociale.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PrestacionesSocialesHeader.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tCargo.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tCiaSeleccionada.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tCuentasContablesPorEmpleadoYRubro.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tCuotasPrestamo.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tDepartamento.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tdGruposEmpleado.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tEmpleado.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tGruposEmpleado.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tMaestraRubro.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tNomina.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tNominaHeader.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tNomina_SalarioIntegral.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tPrestamo.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tRubrosAsignado.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Users\aspnet_Users.cs">
+      <DependentUpon>UserModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Users\Compania.cs">
+      <DependentUpon>UserModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Users\CompaniasYUsuario.cs">
+      <DependentUpon>UserModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Users\tCiaSeleccionada2.cs">
+      <DependentUpon>UserModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Users\UserModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Users\UserModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Users\UserModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UserModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Utilidade.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Vacacione.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VacacPorAnoGenerica.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VacacPorAnoParticulare.cs">
+      <DependentUpon>NominaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Nomina\AsientosContables\AsientosContables.aspx.cs">
+      <DependentUpon>AsientosContables.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Nomina\AsientosContables\AsientosContables.aspx.designer.cs">
+      <DependentUpon>AsientosContables.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Nomina\AsientosContables\AsientosContables_ConstruccionAsientoContable.aspx.cs">
+      <DependentUpon>AsientosContables_ConstruccionAsientoContable.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Nomina\AsientosContables\AsientosContables_ConstruccionAsientoContable.aspx.designer.cs">
+      <DependentUpon>AsientosContables_ConstruccionAsientoContable.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Nomina\AsientosContables\AsientoContable_Consulta.aspx.cs">
+      <DependentUpon>AsientoContable_Consulta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Nomina\AsientosContables\AsientoContable_Consulta.aspx.designer.cs">
+      <DependentUpon>AsientoContable_Consulta.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Nomina\AsientosContables\AsientosContables_Objects.cs" />
+    <Compile Include="Nomina\Consulta\Nomina.aspx.cs">
+      <DependentUpon>Nomina.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Nomina\Consulta\Nomina.aspx.designer.cs">
+      <DependentUpon>Nomina.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Nomina\Consulta\OpcionesReporte.aspx.cs">
+      <DependentUpon>OpcionesReporte.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Nomina\Consulta\OpcionesReporte.aspx.designer.cs">
+      <DependentUpon>OpcionesReporte.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Nomina\Nomina\OpcionesReporte.aspx.cs">
+      <DependentUpon>OpcionesReporte.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Nomina\Nomina\OpcionesReporte.aspx.designer.cs">
+      <DependentUpon>OpcionesReporte.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Nomina\Nomina\Nomina_ConstruccionTextFiles.aspx.cs">
+      <DependentUpon>Nomina_ConstruccionTextFiles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Nomina\Nomina\Nomina_ConstruccionTextFiles.aspx.designer.cs">
+      <DependentUpon>Nomina_ConstruccionTextFiles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Nomina\Nomina\Nomina.aspx.cs">
+      <DependentUpon>Nomina.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Nomina\Nomina\Nomina.aspx.designer.cs">
+      <DependentUpon>Nomina.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Nomina\Nomina\Nomina_Report_ConsultaNomina.cs" />
+    <Compile Include="Nomina\PrestacionesSociales\PrestacionesSociales_ObtencionTxtFile.aspx.cs">
+      <DependentUpon>PrestacionesSociales_ObtencionTxtFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Nomina\PrestacionesSociales\PrestacionesSociales_ObtencionTxtFile.aspx.designer.cs">
+      <DependentUpon>PrestacionesSociales_ObtencionTxtFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Nomina\PrestacionesSociales\Nomina_Report_ConsultaPrestacionesSociales.cs" />
+    <Compile Include="Nomina\PrestacionesSociales\PrestacionesSociales.aspx.cs">
+      <DependentUpon>PrestacionesSociales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Nomina\PrestacionesSociales\PrestacionesSociales.aspx.designer.cs">
+      <DependentUpon>PrestacionesSociales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MostrarPdfWordFile.aspx.cs">
+      <DependentUpon>MostrarPdfWordFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MostrarPdfWordFile.aspx.designer.cs">
+      <DependentUpon>MostrarPdfWordFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportViewer.aspx.cs">
+      <DependentUpon>ReportViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReportViewer.aspx.designer.cs">
+      <DependentUpon>ReportViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Master.designer.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Mobile.Master.designer.cs">
+      <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Site2.master.cs">
+      <DependentUpon>Site2.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site2.master.designer.cs">
+      <DependentUpon>Site2.master</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\VacacionesConsulta\VacacionesConsulta.cs" />
+    <Compile Include="ViewModels\WebApi\VacacionesConsulta.cs" />
+    <Compile Include="ViewSwitcher.ascx.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewSwitcher.ascx.designer.cs">
+      <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Home\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Account\Web.config" />
+    <Content Include="Site.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Site2.master" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\web.config" />
+    <Content Include="Views\VacacionesConsulta\Index.cshtml" />
+    <Content Include="Views\VacacionesConsulta\Filtro.cshtml" />
+    <Content Include="Scripts\jquery 2.1\jquery-2.1.0.min.map" />
+    <Content Include="Views\ArcEmpleados\Index old.cshtml" />
+    <Content Include="Views\ArcEmpleados\Index.cshtml" />
+    <Content Include="Temp\RecibosPago\Globx\ALEJANDRATERESAPETITZAPATA_1_84_manuel.docx" />
+    <Content Include="Temp\RecibosPago\Globx\ALEJANDRATERESAPETITZAPATA_1_84_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\Globx\ALEXANDERAPONTEMANZOL_1_105_manuel.docx" />
+    <Content Include="Temp\RecibosPago\Globx\ALEXANDERAPONTEMANZOL_1_105_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\Globx\CÉSARABRAHAMMACHADOCABRERA_1_80_manuel.docx" />
+    <Content Include="Temp\RecibosPago\Globx\CÉSARABRAHAMMACHADOCABRERA_1_80_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\Globx\DIALISCECILIAROJASPONTE_1_79_manuel.docx" />
+    <Content Include="Temp\RecibosPago\Globx\DIALISCECILIAROJASPONTE_1_79_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\Globx\JESÚSDANIELSUCRESOULÉS_1_100_manuel.docx" />
+    <Content Include="Temp\RecibosPago\Globx\JESÚSDANIELSUCRESOULÉS_1_100_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\Globx\JOSÉABRAHAMMACHADOPULIDO_1_77_manuel.docx" />
+    <Content Include="Temp\RecibosPago\Globx\JOSÉABRAHAMMACHADOPULIDO_1_77_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\Globx\JOSÉENRIQUEMARCANORODRÍGUEZ_1_102_manuel.docx" />
+    <Content Include="Temp\RecibosPago\Globx\JOSÉENRIQUEMARCANORODRÍGUEZ_1_102_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\Globx\JOSÉGREGORIOCALDERÓNCORDERO_1_81_manuel.docx" />
+    <Content Include="Temp\RecibosPago\Globx\JOSÉGREGORIOCALDERÓNCORDERO_1_81_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\Globx\LILACOROMOTOCARRERASMACHADO_1_103_manuel.docx" />
+    <Content Include="Temp\RecibosPago\Globx\LILACOROMOTOCARRERASMACHADO_1_103_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\Globx\MARIAEUGENIAARIASARAUJO_1_94_manuel.docx" />
+    <Content Include="Temp\RecibosPago\Globx\MARIAEUGENIAARIASARAUJO_1_94_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\Globx\MARÍAELENADOMINGUEZNAYA_1_86_manuel.docx" />
+    <Content Include="Temp\RecibosPago\Globx\MARÍAELENADOMINGUEZNAYA_1_86_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\Globx\MAYRAALEJANDRAMÁRQUEZBEAMONT_1_98_manuel.docx" />
+    <Content Include="Temp\RecibosPago\Globx\MAYRAALEJANDRAMÁRQUEZBEAMONT_1_98_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\Globx\PAOLAANDREINAASUAJEFERNÁNDEZ_1_104_manuel.docx" />
+    <Content Include="Temp\RecibosPago\Globx\PAOLAANDREINAASUAJEFERNÁNDEZ_1_104_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\Globx\RecibosPago.docx" />
+    <Content Include="Temp\RecibosPago\Globx\RecibosPago_manuel.docx" />
+    <Content Include="Temp\RecibosPago\LVzla\RecibosPago.docx" />
+    <Content Include="Temp\RecibosPago\RISK\ALFONSOECARREÑOM_1_13_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\ALFREDOSTORY_1_4_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\ALFREDOSTORY_1_4_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\ANAMARIAEUGENIAMARINGUARDIA_1_21_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\ANAMARIAEUGENIAMARINGUARDIA_1_21_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\ANAMERCEDESTIAPA_1_55_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\ANAMERCEDESTIAPA_1_55_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\CARLOSALBERTORENGIFOMARTINEZ_1_59_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\CELESTINOANTONIOROJASMEDINA_1_10_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\CELESTINOROJAS_1_10_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\DENNIFERLINOJOSAMEDINA_1_47_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\EDGARALBURQUEQUE_1_60_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\EDGARALBURQUEQUE_1_60_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\EVELINBLANCO_1_56_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\EVELINNATHALYBLANCOPÉREZ_1_56_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\EVELINNATHALYBLANCOPÉREZ_1_56_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\JEANPETERPEREZMARQUEZ_1_57_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\JEANPETERPEREZMARQUEZ_1_57_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\JEIMYMARIANAFUENTESMONTILVA_1_41_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\JEIMYMARIANAFUENTESMONTILVA_1_41_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\JEIMYMFUENTESMONTILVA_1_41_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\JONATHANRONDON_1_12_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\JONATHANRONDON_1_12_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\JORGELUISPEREZ_1_6_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\JORGELUISPEREZ_1_6_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\JOSEANTONIOLASSOALCALA_1_39_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\JOSEANTONIOLASSOALCALA_1_39_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\JOSELYNALMEIDA_1_48_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\JOSELYNDELVALLEALMEIDASOSA_1_48_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\JOSELYNDELVALLEALMEIDASOSA_1_48_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\LYVICTORIAPACHECOIDROBO_1_22_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\LYVICTORIAPACHECOIDROBO_1_22_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\ManuelRivera_1_61_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\MERCYEDITHSOSAR_1_38_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\MERCYEDITHSOSAR_1_38_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\MERCYESOSAR_1_38_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\MIGUELHIDALGO_1_5_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\MIGUELHIDALGO_1_5_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\NIDIAMARGARITAPAJAROSANCHEZ_1_58_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\RAULZARATE_1_9_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\RAULZARATE_1_9_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\RecibosPago.docx" />
+    <Content Include="Temp\RecibosPago\RISK\RecibosPago_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\RecibosPago_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\ROSACASARESESPINOZA_1_46_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\ROSACASARESESPINOZA_1_46_manuel.pdf" />
+    <Content Include="Temp\RecibosPago\RISK\SAMUELVASQUEZ_1_7_manuel.docx" />
+    <Content Include="Temp\RecibosPago\RISK\SAMUELVASQUEZ_1_7_manuel.pdf" />
+    <Content Include="Temp\VacacionesDiasPendientes_manuel.xlsx" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Empleados\Consulta\ConsultaEmpleados.rdlc" />
+    <EmbeddedResource Include="Empleados\Faltas\ConsultaEmpleadosFaltas.rdlc" />
+    <EmbeddedResource Include="Empleados\Vacaciones\DiasVacaciones.rdlc" />
+    <EmbeddedResource Include="Nomina\AsientosContables\ComprobantesContables.rdlc" />
+    <EmbeddedResource Include="Nomina\Consulta\Nomina.rdlc" />
+    <EmbeddedResource Include="Nomina\Consulta\NominaPorRubroDepartamento.rdlc" />
+    <EmbeddedResource Include="Nomina\Nomina\NominaPorRubroDepartamento.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nomina\Nomina\Nomina.rdlc" />
+    <EmbeddedResource Include="Nomina\PrestacionesSociales\PrestacionesSociales.rdlc" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:16218/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

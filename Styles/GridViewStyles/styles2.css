@@ -1,0 +1,97 @@
+/*H1
+{
+	font-size: small;
+	color: #4A3C8C;
+	font-family: Arial;
+}*/
+
+.Grid
+{
+	border: solid 1px #E7E7FF;
+    font-size: small;
+}
+
+.Grid td
+{
+    border: solid 1px #FFFFFF;
+    margin: 1px;
+    font-family: Arial;
+    padding: 5px 5px 5px 5px;
+}
+
+.GridHeader
+{
+    font-weight: bold;
+    /*padding: 4px 50px 4px 4px;*/
+    color: #F7F7F7;
+    background-color: #428BCA;
+    font-size: small;
+}
+
+.GridHeader th
+{
+    padding: 5px 5px 5px 5px;
+    font-size: x-small;
+    font-weight: bold;
+}
+
+.GridFooter
+{
+    font-size: x-small;
+    color: #4A3C8C;
+    border: solid 1px #FFFFFF;
+    margin: 1px;
+    font-family: Arial;
+    padding: 5px 5px 5px 5px;
+    background-color: #F7F7F7;
+    font-weight: bold;
+}
+
+.GridHeader a
+{
+	text-decoration: none;
+	color: #F7F7F7;
+	padding: 15px;
+}
+
+.GridHeader a:hover
+{
+	text-decoration: underline;
+	background: #4A3C8C url(images/spin.gif) no-repeat 0 100%;
+}
+
+.GridItem, .GridAltItem
+{
+	font-size: x-small;
+	color: #4A3C8C;
+}
+
+.GridItem
+{
+	background-color: #E7E7FF;
+}
+
+.GridSelectedItem
+{
+    background-color: LightCyan;
+    font-weight: bold;
+    color: #003399;
+    font-size: x-small;
+}
+
+.GridAltItem
+{
+	background-color: #F7F7F7;
+}
+
+.GridPager
+{
+	font-size: 10px;
+	background-color: #E7E7FF;
+}
+
+.GridEmptyData
+{
+	font-size: 12px;
+	background-color: #F7F7F7;
+}

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0f07bcedc12d4de6bcd37b6f63cc4160" Name="Diagram1" ZoomLevel="75">
+        <EntityTypeShape EntityType="NominaModel.Compania" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="NominaModel.tGruposEmpleado" Width="2.125" PointX="3.125" PointY="0.625" IsExpanded="true" />
+        <AssociationConnector Association="NominaModel.FK_tGruposEmpleados_Companias" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="NominaModel.tCiaSeleccionada" Width="1.875" PointX="0.625" PointY="12.75" />
+        <AssociationConnector Association="NominaModel.FK_tCiaSeleccionada_Companias" />
+        <EntityTypeShape EntityType="NominaModel.Empleados_Sueldo" Width="2" PointX="6.75" PointY="5.75" />
+        <EntityTypeShape EntityType="NominaModel.tCargo" Width="1.5" PointX="6.75" PointY="13.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="NominaModel.tDepartamento" Width="1.5" PointX="6.75" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="NominaModel.DiasFeriado" Width="1.5" PointX="14.875" PointY="16.125" />
+        <EntityTypeShape EntityType="NominaModel.tCuotasPrestamo" Width="2.625" PointX="6.375" PointY="17.25" />
+        <EntityTypeShape EntityType="NominaModel.tPrestamo" Width="2.375" PointX="2.75" PointY="19.375" />
+        <AssociationConnector Association="NominaModel.FK_tCuotasPrestamos_tPrestamos" />
+        <EntityTypeShape EntityType="NominaModel.Parametros_Nomina_SalarioMinimo" Width="2.875" PointX="19" PointY="10.875" />
+        <EntityTypeShape EntityType="NominaModel.VacacPorAnoGenerica" Width="2.25" PointX="2.875" PointY="30.25" />
+        <EntityTypeShape EntityType="NominaModel.VacacPorAnoParticulare" Width="2.25" PointX="2.875" PointY="27.625" />
+        <EntityTypeShape EntityType="NominaModel.CambiosMoneda" Width="2.75" PointX="6.25" PointY="30.25" />
+        <EntityTypeShape EntityType="NominaModel.Banco" Width="1.75" PointX="0.5" PointY="1.375" />
+        <EntityTypeShape EntityType="NominaModel.CuentasContable" Width="3.375" PointX="14.625" PointY="24.375" />
+        <AssociationConnector Association="NominaModel.FK_CuentasContables_Companias" />
+        <EntityTypeShape EntityType="NominaModel.tCuentasContablesPorEmpleadoYRubro" Width="3.375" PointX="9.75" PointY="24.375" />
+        <AssociationConnector Association="NominaModel.FK_tCuentasContablesPorEmpleadoYRubro_Companias" />
+        <AssociationConnector Association="NominaModel.FK_tCuentasContablesPorEmpleadoYRubro_CuentasContables" />
+        <AssociationConnector Association="NominaModel.FK_tCuentasContablesPorEmpleadoYRubro_tDepartamentos" />
+        <EntityTypeShape EntityType="NominaModel.Nomina_DefinicionAnticipos" Width="2.625" PointX="10" PointY="30.625" />
+        <EntityTypeShape EntityType="NominaModel.Nomina_DefinicionAnticipos_Empleados" Width="2.875" PointX="13.875" PointY="30.625" />
+        <AssociationConnector Association="NominaModel.FK_Nomina_DefinicionAnticipos_Empleados_Nomina_DefinicionAnticipos" />
+        <AssociationConnector Association="NominaModel.FK_Nomina_DefinicionAnticipos_tGruposEmpleados" />
+        <EntityTypeShape EntityType="NominaModel.DeduccionesISLR" Width="2.5" PointX="10.125" PointY="33.75" />
+        <EntityTypeShape EntityType="NominaModel.DeduccionesNomina" Width="2.625" PointX="6.25" PointY="33.5" />
+        <EntityTypeShape EntityType="NominaModel.ParametrosNomina" Width="1.5" PointX="18" PointY="36.75" />
+        <AssociationConnector Association="NominaModel.FK_DeduccionesNomina_Companias" />
+        <AssociationConnector Association="NominaModel.FK_ParametrosNomina_Companias" />
+        <AssociationConnector Association="NominaModel.FK_ParametrosNomina_CuentasContables" />
+        <AssociationConnector Association="NominaModel.FK_DeduccionesISLR_tGruposEmpleados" />
+        <AssociationConnector Association="NominaModel.FK_DeduccionesNomina_tGruposEmpleados" />
+        <AssociationConnector Association="NominaModel.FK_DeduccionesNomina_tGruposEmpleados1" />
+        <EntityTypeShape EntityType="NominaModel.tdGruposEmpleado" Width="2.125" PointX="6.125" PointY="0.625" />
+        <AssociationConnector Association="NominaModel.FK_tdGruposEmpleados_tGruposEmpleados1" />
+        <EntityTypeShape EntityType="NominaModel.Utilidade" Width="2.875" PointX="14" PointY="33.75" />
+        <AssociationConnector Association="NominaModel.FK_Utilidades_tGruposEmpleados" />
+        <EntityTypeShape EntityType="NominaModel.Empleados_Faltas" Width="2.125" PointX="6.75" PointY="8" />
+        <AssociationConnector Association="NominaModel.FK_Empleados_Faltas_tGruposEmpleados" />
+        <EntityTypeShape EntityType="NominaModel.tNomina_SalarioIntegral" Width="2.25" PointX="13.125" PointY="6.625" />
+        <EntityTypeShape EntityType="NominaModel.tNomina" Width="2.5" PointX="9.5" PointY="6.375" />
+        <EntityTypeShape EntityType="NominaModel.Vacacione" Width="3.625" PointX="9.625" PointY="13.25" />
+        <AssociationConnector Association="NominaModel.FK_Vacaciones_tGruposEmpleados" />
+        <EntityTypeShape EntityType="NominaModel.PrestacionesSocialesHeader" Width="2.125" PointX="2.875" PointY="24.25" />
+        <AssociationConnector Association="NominaModel.FK_PrestacionesSocialesHeaders_Companias" />
+        <EntityTypeShape EntityType="NominaModel.PrestacionesSociale" Width="2.75" PointX="6.125" PointY="24.25" />
+        <AssociationConnector Association="NominaModel.FK_PrestacionesSociales_PrestacionesSocialesHeaders" />
+        <EntityTypeShape EntityType="NominaModel.tMaestraRubro" Width="2.25" PointX="15.75" PointY="0.5" />
+        <AssociationConnector Association="NominaModel.FK_tCuentasContablesPorEmpleadoYRubro_tMaestraRubros" />
+        <AssociationConnector Association="NominaModel.FK_tNomina_tMaestraRubros" />
+        <EntityTypeShape EntityType="NominaModel.tRubrosAsignado" Width="2.625" PointX="19.125" PointY="0.5" />
+        <AssociationConnector Association="NominaModel.FK_tRubrosAsignados_tMaestraRubros" />
+        <EntityTypeShape EntityType="NominaModel.tNominaHeader" Width="2.75" PointX="9.375" PointY="0.625" />
+        <AssociationConnector Association="NominaModel.FK_tNominaHeaders_tGruposEmpleados" />
+        <AssociationConnector Association="NominaModel.FK_tNomina_tNominaHeaders" />
+        <AssociationConnector Association="NominaModel.FK_tNomina_SalarioIntegral_tNominaHeaders" />
+        <EntityTypeShape EntityType="NominaModel.tEmpleado" Width="3.25" PointX="2.625" PointY="5.875" />
+        <AssociationConnector Association="NominaModel.FK_tEmpleados_Bancos1" />
+        <AssociationConnector Association="NominaModel.FK_tEmpleados_Bancos2" />
+        <AssociationConnector Association="NominaModel.FK_tEmpleados_Companias" />
+        <AssociationConnector Association="NominaModel.FK_DeduccionesISLR_tEmpleados" />
+        <AssociationConnector Association="NominaModel.FK_DeduccionesNomina_tEmpleados" />
+        <AssociationConnector Association="NominaModel.FK_Empleados_Faltas_tEmpleados" />
+        <AssociationConnector Association="NominaModel.FK_Empleados_Sueldo_tEmpleados" />
+        <AssociationConnector Association="NominaModel.FK_Nomina_DefinicionAnticipos_Empleados_tEmpleados" />
+        <AssociationConnector Association="NominaModel.FK_PrestacionesSociales_tEmpleados" />
+        <AssociationConnector Association="NominaModel.FK_tEmpleados_tCargos" />
+        <AssociationConnector Association="NominaModel.FK_tCuentasContablesPorEmpleadoYRubro_tEmpleados" />
+        <AssociationConnector Association="NominaModel.FK_tEmpleados_tDepartamentos" />
+        <AssociationConnector Association="NominaModel.FK_tdGruposEmpleados_tEmpleados" />
+        <AssociationConnector Association="NominaModel.FK_tNomina_SalarioIntegral_tEmpleados" />
+        <AssociationConnector Association="NominaModel.FK_tNomina_tEmpleados" />
+        <AssociationConnector Association="NominaModel.FK_tPrestamos_tEmpleados" />
+        <AssociationConnector Association="NominaModel.FK_tRubrosAsignados_tEmpleados" />
+        <AssociationConnector Association="NominaModel.FK_Vacaciones_tEmpleados" />
+        <AssociationConnector Association="NominaModel.FK_VacacPorAnoParticulares_tEmpleados" />
+        <EntityTypeShape EntityType="NominaModel.Asiento" Width="2.75" PointX="12.625" PointY="0.5" />
+        <AssociationConnector Association="NominaModel.FK_Asientos_Companias" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

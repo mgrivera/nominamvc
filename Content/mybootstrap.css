@@ -1,0 +1,114 @@
+
+/* para agregar algunos cambios, muy menores al style en tables en bootstrap */
+
+/*.table th {
+    color: #F7F7F7;
+    background-color: #428BCA;
+    font-weight: bold;
+
+    border: 1px solid #BBB;
+}
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: #eeeeea;
+}
+*/
+
+
+/* para agregar algunos cambios, muy menores al style en tables en bootstrap */
+
+.table {
+     font-size: x-small;
+}
+
+.table th {
+    /*background-color: #B9C9FE;
+    color: white;*/
+    color: #F7F7F7 !important;
+    background-color: #428BCA !important;
+    font-weight: bold !important;
+    border: 1px solid #BBB !important;
+}
+.table tbody tr:hover td, .table tbody tr:hover th {
+    background-color: #eeeeea;
+}
+
+.table>tbody>tr>td {
+    vertical-align: middle; 
+}
+
+
+
+/* para centrar el contenido de divs en Bootstrap */
+
+.center {
+    display: table-cell;
+    vertical-align: middle;
+    float: none;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+
+/* nótese como agregos algunos styles, para mejorar el footer (tomado de bootstrap) */
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+#footer > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+nav {
+    padding-right: 25px;
+    padding-left: 25px;
+}
+
+
+/* para mejorar el dl (definition list: lista con términos y definiciones) pues bs lo justifica a la derecha y no queremos ésto */
+
+.dl-horizontal dt {
+    text-align: left;
+    /*margin-bottom: 1em;*/
+    width: auto;
+    padding-right: 1em;
+}
+
+.dl-horizontal dd {
+    margin-left: 0;
+    /*margin-bottom: 1em;*/
+}
+
+/*.modal-header {
+    background-color: #428BCA;
+}*/
+
+.modal-header {
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: #0480be;
+    color: white; 
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+ }
+
+/* para quitar el margen al bootstrap pager, pues ocupa demasiado espacio 
+   hacia arriba y hacia abajo */ 
+.pagination {
+    font-size: x-small; 
+    margin: 0; 
+}
+
+/* para disminuir el font-size en el bootstrap pager */ 
+.pagination-sm > li > a, .pagination-sm > li > span { 
+    font-size: 10px; 
+}
+

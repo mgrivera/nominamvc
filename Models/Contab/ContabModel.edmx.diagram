@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7fee831ca7d3457a8073ad89fd6b6bc7" Name="Diagram1" ZoomLevel="75">
+        <EntityTypeShape EntityType="dbContabModel.Asiento" Width="2.375" PointX="8" PointY="1.5" />
+        <EntityTypeShape EntityType="dbContabModel.AsientosNegativosId" Width="2.25" PointX="14.375" PointY="1.375" />
+        <EntityTypeShape EntityType="dbContabModel.Compania" Width="2" PointX="4.875" PointY="1.375" />
+        <EntityTypeShape EntityType="dbContabModel.dAsiento" Width="1.875" PointX="11.375" PointY="2.125" />
+        <EntityTypeShape EntityType="dbContabModel.MesesDelAnoFiscal" Width="2.25" PointX="1.75" PointY="2.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="dbContabModel.UltimoMesCerradoContab" Width="2.25" PointX="1.75" PointY="4.375" IsExpanded="false" />
+        <AssociationConnector Association="dbContabModel.FK_Asientos_Companias" />
+        <AssociationConnector Association="dbContabModel.FK_dAsientos_Asientos" />
+        <AssociationConnector Association="dbContabModel.FK_MesesDelAnoFiscal_Companias" />
+        <AssociationConnector Association="dbContabModel.FK_UltimoMesCerradoContab_Companias" />
+        <EntityTypeShape EntityType="dbContabModel.CuentasContable" Width="2.125" PointX="14.5" PointY="3.5" />
+        <AssociationConnector Association="dbContabModel.FK_CuentasContables_Companias" />
+        <AssociationConnector Association="dbContabModel.FK_dAsientos_CuentasContables1" />
+        <EntityTypeShape EntityType="dbContabModel.TiposDeAsiento" Width="1.875" PointX="8.125" PointY="8.25" />
+        <AssociationConnector Association="dbContabModel.FK_Asientos_TiposDeAsiento" />
+        <EntityTypeShape EntityType="dbContabModel.Moneda" Width="1.5" PointX="4.875" PointY="8.25" />
+        <AssociationConnector Association="dbContabModel.FK_Asientos_Monedas" />
+        <AssociationConnector Association="dbContabModel.FK_Asientos_Monedas1" />
+        <AssociationConnector Association="dbContabModel.FK_Companias_Monedas" />
+        <EntityTypeShape EntityType="dbContabModel.tGruposDeTiposDeAsiento" Width="2.375" PointX="10.75" PointY="8.25" />
+        <AssociationConnector Association="dbContabModel.FK_TiposDeAsiento_tGruposDeTiposDeAsiento" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3a73d257b89e47f99b1c7762daec150d" Name="Diagram1">
+        <EntityTypeShape EntityType="dbContabUserModel.aspnet_Users" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbContabUserModel.Compania" Width="2.75" PointX="7.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbContabUserModel.CompaniasYUsuario" Width="2" PointX="3.625" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="dbContabUserModel.FK_CompaniasYUsuarios_aspnet_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="dbContabUserModel.FK_CompaniasYUsuarios_Companias" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbContabUserModel.tCiaSeleccionada2" Width="2.25" PointX="11" PointY="1" />
+        <AssociationConnector Association="dbContabUserModel.FK_tCiaSeleccionada_Companias" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

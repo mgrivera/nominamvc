@@ -1,0 +1,549 @@
+﻿@using PagedList.Mvc;
+@using NominaASP.ViewModels.VacacionesConsulta;
+
+@model VacacionesConsulta
+
+@{
+    ViewBag.Title = "Vacaciones - Consulta de días pendientes";
+}
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        @Html.ValidationSummary(true)
+    </div>
+
+    <div class="col-md-11 col-md-offset-1">
+        @if (!string.IsNullOrEmpty(Model.Message))
+        {
+            string message = Model.Message;
+            message = WebUtility.HtmlDecode(message);
+
+            <div>
+                @if (Model.Error)
+                {
+                    <p style="color: red; ">
+                        Se han producido errores al intentar ejecutar esta operación ... <br />
+                        @Html.Raw(message)
+                    </p>
+                }
+                else
+                {
+                    <p style="color: blue; ">
+                        @Html.Raw(message)
+                    </p>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-11 col-md-offset-1">
+        <div style="float: left; ">
+            @if (Model.VacacionesDisfrutadas != null)
+            {
+                // nótese como queremos mostrar el pager arriba y abajo de la tabla ...
+                @Html.PagedListPager(Model.VacacionesDisfrutadas,
+                                            page => Url.Action("Index", new
+                                            {
+                                                Page = page,
+                                                CiaContabSeleccionada = Model.CiaContabSeleccionada,
+                                                CiaContabSeleccionada_Nombre = Model.CiaContabSeleccionada_Nombre,
+                                                FechaConsulta = Model.FechaConsulta.Value.ToString("yyyy-MM-dd"),
+                                                Departamento = Model.Departamento,
+                                                Empleado = Model.Empleado,
+                                                EstadoEmpleado = Model.EstadoEmpleado,
+                                                MostrarUltimoItemCadaEmpleado = Model.MostrarUltimoItemCadaEmpleado
+                                            }))
+            }
+        </div>
+        <div style="text-align: right; margin-right: 10px; font-size: small; color: #004080; font-style: italic; margin-top: 5px;">
+            @Model.CiaContabSeleccionada_Nombre
+        </div>
+    </div>
+</div>
+
+<div class="row" style="clear: both; ">
+    <div class="col-md-1 left-side-bar" style="padding: 30px 0px 30px 0px">
+
+        <a href='@Url.Action("Filtro")'>
+            <img src='@Url.Content("~/Pictures/Filter_25x25.png")' />
+        </a>
+        <br />
+        @*@Html.ActionLink("Aplicar un filtro", "Filtro")*@
+        <a href='@Url.Action("Filtro")'>Aplicar<br />un filtro</a>
+
+        <hr />
+
+        @if (Model.Page != null)
+        {
+            <a href='@Url.Action("ConstruirDocumentoExcel", 
+            new 
+            {
+                Page = Model.Page,
+                CiaContabSeleccionada = Model.CiaContabSeleccionada,
+                CiaContabSeleccionada_Nombre = Model.CiaContabSeleccionada_Nombre,
+                FechaConsulta = Model.FechaConsulta.Value.ToString("yyyy-MM-dd"),
+                Departamento = Model.Departamento,
+                Empleado = Model.Empleado,
+                EstadoEmpleado = Model.EstadoEmpleado,
+                MostrarUltimoItemCadaEmpleado = Model.MostrarUltimoItemCadaEmpleado
+            })'>
+            <img src='@Url.Content("~/Pictures/Excel_25x25.png")' />
+        </a>
+        <br />
+        <a href='@Url.Action("ConstruirDocumentoExcel", 
+            new 
+            {
+                Page = Model.Page,
+                CiaContabSeleccionada = Model.CiaContabSeleccionada,
+                CiaContabSeleccionada_Nombre = Model.CiaContabSeleccionada_Nombre,
+                FechaConsulta = Model.FechaConsulta.Value.ToString("yyyy-MM-dd"),
+                Departamento = Model.Departamento,
+                Empleado = Model.Empleado,
+                EstadoEmpleado = Model.EstadoEmpleado,
+                MostrarUltimoItemCadaEmpleado = Model.MostrarUltimoItemCadaEmpleado
+            })'>Exportar<br />a Excel</a>
+        <hr />
+        }
+        else
+        {
+            <a href='@Url.Action("Filtro", "VacacionesConsultaController")' data-toggle="modal" data-target="#Error_ApliqueUnFiltro_Modal">
+                <img src='@Url.Content("~/Pictures/Excel_25x25.png")' />
+            </a>
+            <br />
+            <a href='@Url.Action("Filtro", "VacacionesConsultaController")' data-toggle="modal" data-target="#Error_ApliqueUnFiltro_Modal">
+                Exportar<br />a Excel
+            </a>
+        }
+
+        @*<br />*@
+
+        @if (this.ViewBag.ShowDownloadButton != null && this.ViewBag.ShowDownloadButton)
+        {
+            string uriAddress = this.ViewBag.UriAddress.ToString();
+            <a href="@uriAddress">
+                <img src='@Url.Content("~/Pictures/Download_25x25.png")' />
+            </a>
+            <br />
+            <a href="@uriAddress">Download</a>
+        }
+
+        @*<a href='@Url.Action("Filtro", "VacacionesConsultaController")' data-toggle="modal" data-target="#FuncionNoImplementada_Modal">
+            <img src='@Url.Content("~/Pictures/print_35x35.png")' />
+        </a>
+        <br />
+        @Html.ActionLink("Reporte", "Filtro", "VacacionesConsultaController", new { }, new { data_toggle = "modal", data_target = "#FuncionNoImplementada_Modal" })*@
+    </div>
+
+    <div class="col-md-11">
+        <table class="table table-striped table-bordered table-hover table-condensed table-responsive" style="font-size: 10px; ">
+            <thead>
+                <tr>
+                    <th />
+                    <th colspan="7" style="text-align: center; ">Años de vacaciones</th>
+                    <th colspan="6" style="text-align: center; ">Días disfrutados</th>
+                    <th colspan="3" style="text-align: center; ">Días pendientes</th>
+                </tr>
+                <tr>
+                    <th />
+                    <th colspan="3" style="text-align: center; "></th>
+                    <th colspan="4" style="text-align: center; ">Días</th>
+                    <th colspan="3" style="text-align: center; "></th>
+                    <th colspan="3" style="text-align: center; ">Días disfrute</th>
+                    <th colspan="3" style="text-align: center; "></th>
+                </tr>
+                <tr>
+                    <th style="text-align: left; ">
+                        @Html.DisplayNameFor(model => model.VacacionesDisfrutadas.First().Empleado)
+                    </th>
+                    <th style="text-align: center; ">
+                        @Html.DisplayNameFor(model => model.VacacionesDisfrutadas.First().NumeroVacacion)
+                    </th>
+                    <th style="text-align: center; ">
+                        @Html.DisplayNameFor(model => model.VacacionesDisfrutadas.First().VacacionAnoDesde)
+                    </th>
+                    <th style="text-align: center; ">
+                        @Html.DisplayNameFor(model => model.VacacionesDisfrutadas.First().VacacionAnoHasta)
+                    </th>
+                    <th style="text-align: center; ">
+                        @Html.DisplayNameFor(model => model.VacacionesDisfrutadas.First().CantidadDiasVacacionSegunTabla)
+                    </th>
+                    <th style="text-align: center; ">
+                        @Html.DisplayNameFor(model => model.VacacionesDisfrutadas.First().CantidadDiasAnoParaCalculoProrrata)
+                    </th>
+                    <th style="text-align: center; ">
+                        @Html.DisplayNameFor(model => model.VacacionesDisfrutadas.First().FactorProrrata)
+                    </th>
+                    <th style="text-align: center; ">
+                        @Html.DisplayNameFor(model => model.VacacionesDisfrutadas.First().CantidadDiasVacacionSegunTablaProrrata)
+                    </th>
+                    <th style="text-align: center; ">
+                        @Html.DisplayNameFor(model => model.VacacionesDisfrutadas.First().VacacionesDisfrutadas_Cantidad)
+                    </th>
+                    <th style="text-align: center; ">
+                        @*@Html.DisplayNameFor(model => model.VacacionesDisfrutadas.First().VacacionesDisfrutadas_Desde1raVacacion)*@
+                        Desde<br />1ra vac
+                    </th>
+                    <th style="text-align: center; ">
+                        @*@Html.DisplayNameFor(model => model.VacacionesDisfrutadas.First().VacacionesDisfrutadas_HastaUltimaVacacion)*@
+                        Hasta<br />últ vac
+                    </th>
+                    <th style="text-align: center; ">
+                        @Html.DisplayNameFor(model => model.VacacionesDisfrutadas.First().VacacionesDisfrutadas_TotalDias)
+                    </th>
+                    <th style="text-align: center; ">
+                        @Html.DisplayNameFor(model => model.VacacionesDisfrutadas.First().VacacionesDisfrutadas_TotalDiasFeriados)
+                    </th>
+                    <th style="text-align: center; ">
+                        @Html.DisplayNameFor(model => model.VacacionesDisfrutadas.First().VacacionesDisfrutadas_TotalDiasDisfrutados)
+                    </th>
+                    <th style="text-align: center; ">
+                        @*@Html.DisplayNameFor(model => model.VacacionesDisfrutadas.First().DiasPendientes_AnosAnteriores)*@
+                        Años<br />ant
+                    </th>
+                    <th style="text-align: center; ">
+                        @*@Html.DisplayNameFor(model => model.VacacionesDisfrutadas.First().DiasPendientes_EsteAno)*@
+                        Este<br />año
+                    </th>
+                    <th style="text-align: center; ">
+                        @Html.DisplayNameFor(model => model.VacacionesDisfrutadas.First().DiasPendientes_Total)
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @if (Model.VacacionesDisfrutadas != null && Model.VacacionesDisfrutadas.Count() > 0)
+                {
+                    foreach (var item in Model.VacacionesDisfrutadas)
+                    {
+                        <tr>
+                            <td style="text-align: left; ">
+                                @Html.DisplayFor(modelItem => item.AliasEmpleado)
+                            </td>
+                            <td style="text-align: center; ">
+                                @Html.DisplayFor(modelItem => item.NumeroVacacion)
+                            </td>
+                            <td style="text-align: center; ">
+                                @Html.DisplayFor(modelItem => item.VacacionAnoDesde)
+                            </td>
+                            <td style="text-align: center; ">
+                                @Html.DisplayFor(modelItem => item.VacacionAnoHasta)
+                            </td>
+                            <td style="text-align: center; ">
+                                @Html.DisplayFor(modelItem => item.CantidadDiasVacacionSegunTabla)
+                            </td>
+                            <td style="text-align: center; ">
+                                @Html.DisplayFor(modelItem => item.CantidadDiasAnoParaCalculoProrrata)
+                            </td>
+                            <td style="text-align: center; ">
+                                @Html.DisplayFor(modelItem => item.FactorProrrata)
+                            </td>
+                            <td style="text-align: center; ">
+                                @Html.DisplayFor(modelItem => item.CantidadDiasVacacionSegunTablaProrrata)
+                            </td>
+                            <td style="text-align: center; ">
+                                <a data-toggle="modal" data-target="#listaVacaciones_Modal" href="#" class="openmodal"
+                                    data-empleado="@item.Empleado"
+                                    data-desde="@item.VacacionAnoDesde.ToString("yyyy-MM-dd")"
+                                    data-hasta="@item.VacacionAnoHasta.ToString("yyyy-MM-dd")">
+                                    @Html.DisplayFor(modelItem => item.VacacionesDisfrutadas_Cantidad)
+                                </a>
+                            </td>
+                            <td style="text-align: center; ">
+                                @Html.DisplayFor(modelItem => item.VacacionesDisfrutadas_Desde1raVacacion)
+                            </td>
+                            <td style="text-align: center; ">
+                                @Html.DisplayFor(modelItem => item.VacacionesDisfrutadas_HastaUltimaVacacion)
+                            </td>
+                            <td style="text-align: center; ">
+                                @Html.DisplayFor(modelItem => item.VacacionesDisfrutadas_TotalDias)
+                            </td>
+                            <td style="text-align: center; ">
+                                @Html.DisplayFor(modelItem => item.VacacionesDisfrutadas_TotalDiasFeriados)
+                            </td>
+                            <td style="text-align: center; ">
+                                @Html.DisplayFor(modelItem => item.VacacionesDisfrutadas_TotalDiasDisfrutados)
+                            </td>
+                            <td style="text-align: center; ">
+                                @Html.DisplayFor(modelItem => item.DiasPendientes_AnosAnteriores)
+                            </td>
+                            <td style="text-align: center; ">
+                                @Html.DisplayFor(modelItem => item.DiasPendientes_EsteAno)
+                            </td>
+                            <td style="text-align: center; ">
+                                @Html.DisplayFor(modelItem => item.DiasPendientes_Total)
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        @if (Model.VacacionesDisfrutadas != null)
+        {
+            @Html.PagedListPager(Model.VacacionesDisfrutadas,
+            page => Url.Action("Index", new
+            {
+                Page = page,
+                FechaConsulta = Model.FechaConsulta.Value.ToString("yyyy-MM-dd"),
+                Departamento = Model.Departamento,
+                Empleado = Model.Empleado,
+                EstadoEmpleado = Model.EstadoEmpleado,
+                MostrarUltimoItemCadaEmpleado = Model.MostrarUltimoItemCadaEmpleado
+            }))
+            <script>
+                // con jQuery agregamos una clase al pager, para hacerlo más pequeño; nota: esto es BS; sin embargo,
+                // no sabemos como pasar la clase al PagedListPager; por eso usamos jQuery
+                $("ul.pagination").addClass("pagination-sm")
+                $("ul.pagination").css({ "margin": "0" });
+            </script>
+        }
+
+    </div>
+</div>
+
+<div class="modal fade" id="listaVacaciones_Modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Consulta de vacaciones tomadas en el año seleccionado</h4>
+            </div>
+            <div class="modal-body">
+
+                <table class="table table-striped table-bordered table-hover table-condensed table-responsive" style="font-size: 10px; ">
+                    <caption style="text-align: left; ">
+                        <h4>Vacaciones</h4>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th colspan="2" style="text-align: center; ">
+                                Empleado
+                            </th>
+                            <th colspan="2" style="text-align: center; ">
+                                Vacaciones
+                            </th>
+                            <th colspan="3" style="text-align: center; ">
+                                Días
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <th style="text-align: center; ">
+                                #
+                            </th>
+                            <th style="text-align: left; ">
+                                Nombre
+                            </th>
+                            <th style="text-align: center; ">
+                                Salida
+                            </th>
+                            <th style="text-align: center; ">
+                                Regreso
+                            </th>
+                            <th style="text-align: center; ">
+                                Hábiles
+                            </th>
+                            <th style="text-align: center; ">
+                                Feriados
+                            </th>
+                            <th style="text-align: center; ">
+                                Disfrutados
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody data-bind="foreach: viewModel.vacaciones">
+                        <tr>
+                            <td data-bind="text: empleado" style="text-align: center; "></td>
+                            <td data-bind="text: nombre" style="text-align: left; "></td>
+                            <td data-bind="text: salida" style="text-align: center; "></td>
+                            <td data-bind="text: regreso" style="text-align: center; "></td>
+                            <td data-bind="text: diasHabiles" style="text-align: center; "></td>
+                            <td data-bind="text: diasFeriados" style="text-align: center; "></td>
+                            <td data-bind="text: diasDisfrutados" style="text-align: center; "></td>
+                        </tr>
+                    </tbody>
+
+                    <tfoot style="background-color: #8799AD; font-weight: bold; color: white; ">
+                        <tr>
+                            <td />
+                            <td>Totales:</td>
+                            <td />
+                            <td />
+                            <td data-bind="text: sumOfDiasHabiles" style="text-align: center; "></td>
+                            <td data-bind="text: sumOfDiasFeriados" style="text-align: center; "></td>
+                            <td data-bind="text: sumOfDiasDisfrutados" style="text-align: center; "></td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+
+                <table class="table table-striped table-bordered table-hover table-condensed table-responsive" style="font-size: 10px; ">
+                    <caption style="text-align: left; ">
+                        <h4>Días feriados</h4>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th style="text-align: center; ">
+                                Salida
+                            </th>
+                            <th style="text-align: center; ">
+                                Regreso
+                            </th>
+                            <th style="text-align: left; ">
+                                Días feriados
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody data-bind="foreach: viewModel.vacaciones">
+                        <tr>
+                            <td data-bind="text: salida" style="text-align: center; "></td>
+                            <td data-bind="text: regreso" style="text-align: center; "></td>
+                            <td data-bind="text: listaDiasFeriados" style="text-align: left; "></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" id="FuncionNoImplementada_Modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Nómina - Consulta de vacaciones</h4>
+            </div>
+            <div class="modal-body">
+                Esta función no está implementada todavía ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="Error_ApliqueUnFiltro_Modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Nómina - Consulta de vacaciones</h4>
+            </div>
+            <div class="modal-body">
+                <p style="color: red;">Ud. debe aplicar un filtro y seleccionar registros antes de intentar ejecutar esta función.</p> 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+
+    function vacacion(item) {
+        this.empleado = ko.observable(item.Empleado);
+        this.nombre = ko.observable(item.Nombre);
+        this.salida = ko.observable(item.Salida.substring(0, 10));
+        this.regreso = ko.observable(item.Regreso.substring(0, 10));
+        this.diasHabiles = ko.observable(item.DiasHabiles);
+        this.diasFeriados = ko.observable(item.DiasFeriados);
+        this.diasDisfrutados = ko.observable(item.DiasDisfrutados);
+        this.listaDiasFeriados = ko.observable(item.ListaDiasFeriados);
+    }
+
+    function vacaciones() {
+
+        var self = this;
+        this.vacaciones = ko.observableArray([]),
+
+        sumOfDiasHabiles = ko.computed(function () {
+            var sum = 0;
+            var arr = self.vacaciones();
+            for (var i = 0; i < arr.length; i++) {
+                sum += arr[i].diasHabiles();
+            }
+            return sum;
+        });
+
+        sumOfDiasFeriados = ko.computed(function () {
+            var sum = 0;
+            var arr = self.vacaciones();
+            for (var i = 0; i < arr.length; i++) {
+                sum += arr[i].diasFeriados();
+            }
+            return sum;
+        });
+
+        sumOfDiasDisfrutados = ko.computed(function () {
+            var sum=0;
+            var arr = self.vacaciones();
+            for (var i = 0; i < arr.length; i++) {
+                sum += arr[i].diasDisfrutados() ;
+            }
+            return sum;
+        });
+
+        this.loadItemsFromServer = function (uriQueryString) {
+            //var empleado = 4;
+            //var desde = new Date(2012, 1, 1);       // 1 es febrero para js ...
+            //var hasta = new Date(2013, 0, 31);
+
+            //var uri = "api/VacacionesConsultaWebApi/GetVacaciones/?empleado=5&desde=2001-12-05&hasta=2001-12-22
+            var uri = "api/VacacionesConsultaWebApi/GetVacaciones/" + uriQueryString;
+
+            $.getJSON(uri)
+                .done(function (data) {
+                    // debugger; 
+                    self.vacaciones.removeAll();
+                    $.each(data, function (key, item) {
+                        self.vacaciones.push(new vacacion(item));
+                    });
+                })
+                .fail(function () {
+                    alert("There was an error with this funcion call: " + uri);
+                });
+        }
+    }
+
+    function formatDate(date) {
+        var s = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+        return s;
+    }
+
+    $(function () {
+        //$('.btn-link').click(function () {      cambiamos el botón por un anchor (a) 
+        $('a.openmodal').click(function () {
+
+            // cuando el usuario hace un click en la cantidad de años de vacaciones, determinamos los parámetros de ejecución del
+            // web-api function y ejecutamos el método en el viewmodel que lee desde el server ...
+
+            var empleado = $(this).attr('data-empleado');
+            var desde = $(this).attr('data-desde');
+            var hasta = $(this).attr('data-hasta');
+
+            var uriQueryString = "?empleado=" + empleado + "&desde=" + desde + "&hasta=" + hasta;
+            viewModel.loadItemsFromServer(uriQueryString);
+        });
+    });
+
+    var viewModel = new vacaciones();
+    ko.applyBindings(viewModel);
+
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

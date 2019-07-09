@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- para evitar que el "compatibility mode" afecte esta página "-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Nómina</title>
+
+    @Styles.Render("~/Content/css")
+    <link href="~/Content/myMvcStyles.css" rel="stylesheet" />
+
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    
+    <script src="~/Scripts/knockout-3.1.0.js"></script>
+
+    <script src="~/Scripts/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+    <link href="~/Scripts/bootstrap-datepicker/datepicker3.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-datepicker/locales/bootstrap-datepicker.es.js"></script>
+
+    <link href="~/Content/mybootstrap.css" rel="stylesheet" />
+    <link href="~/Content/myStyles.css" rel="stylesheet" />
+
+    <script src="~/Scripts/lodash/lodash.js"></script>
+
+    <script src="~/Scripts/angular/angular.min.js"></script>
+    <script src="~/Scripts/angular/directives/pagination/dirPagination.js"></script>
+    <script src="~/Scripts/angular/angular-locale_en-us.js"></script>
+    <script src="~/Scripts/angular/angular-locale_es.js"></script>
+    <script src="~/Scripts/angular/ui-bootstrap/ui-bootstrap-tpls-0.12.0.min.js"></script>
+    <script src="~/Scripts/code/generic functions/browserType.js"></script>
+    <link href="~/Scripts/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top" 
+         role="navigation" 
+         style="margin-bottom: 30px; ">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                @{
+                    // nótese como obtenemos la dirección del root de la aplicación; cómo estamos en mvc y queremos ir a WebForms, no podemos usar
+                    // Html.ActionLink, pues no vamos a un controller ...
+
+                    string myDomainRoot = Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Host + (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port);
+
+                    // parece que este 'path' si es correcto; el anterior llega hasta el puerto (ej: http://localhost:5030); ésto está bien para desarrollo; 
+                    // sin embargo, en producción, esta path no es completo, pues falta el nombre de la aplicación (ej: http://localhost:5030/NominaMVC_v001) 
+                    
+                    string path = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
+                    if (!path.EndsWith("/")) { path += "/"; }
+                    
+                    myDomainRoot = path + "Default.aspx";
+                    
+                    <a href=@myDomainRoot target="_self" class="navbar-brand">
+                        <p style="color: #777777; font-size: x-large; font-style: italic; ">
+                            Nómina <span style="font-size: medium">(v0.1)</span>
+                        </p>
+                    </a>
+                }
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                    @{
+                        // la página que abra el Link corresponde a la opción (current page) que el usuario a seleccionado en el menú de la aplicación ...
+                        string currentPageUrl = Request.Url.AbsoluteUri;
+
+                        currentPageUrl = currentPageUrl.Replace("//", "/");
+                        string[] words = currentPageUrl.Split('/');
+
+                        // obtenemos el último item en el array, pues allí está el nombre de la página
+                        string currentPageName = "";
+
+                        if (words.Length > 0)
+                        {
+                            currentPageName = words[words.Length - 1];
+                        }
+
+                        string helpPageUrl = ""; 
+                        switch (currentPageName)
+                        {
+                            case "VacacionesConsulta":
+                                helpPageUrl = "https://nominadoc.wordpress.com/2017/01/30/dias-pendientes-de-vacaciones-consulta/"; 
+                                break;
+                            case "ArcEmpleados":
+                                helpPageUrl = "https://nominadoc.wordpress.com/2015/02/18/nminaarcs-de-empleados/"; 
+                                break;
+                            default:
+                                helpPageUrl = "#";
+                                break; 
+                        }
+
+                        <li>
+                            <a href=@helpPageUrl target="_blank">
+                                <span style="color: #777777; font-size: x-large; ">?</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container-fluid body-content">
+        <div style="padding: 10px; ">
+            @RenderBody()
+        </div>
+        
+    </div>
+
+    <div class="navbar navbar-default">
+        <div class="container">
+            <p class="navbar-text">&copy; @DateTime.Now.Year - <em>Nómina</em></p>
+        </div>
+    </div>
+
+    @*nota: cuando corremos la aplicación en Google Chrome, el Input type field ya viene con su calendar. Pareciera que agregar este calendar hace que todo 
+    el proceso de indicar una fecha falle.*@ 
+    <script>
+        $(function () {
+            var currentBrowserType = browserType();
+            if (currentBrowserType != 'chrome') {
+                $('.datefield').datepicker({ format: "dd-mm-yyyy", todayHighlight: true, autoclose: true, "language": "es" })  // datepicker from bootstrap 
+            }
+        });
+    </script>
+</body>
+</html>

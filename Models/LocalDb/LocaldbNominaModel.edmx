@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="localdbNominaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Vacaciones_DiasPendientes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreCiaContab" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NombreDepartamento" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Empleado" Type="int" Nullable="false" />
+          <Property Name="NombreEmpleado" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AliasEmpleado" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="NumeroVacacion" Type="int" Nullable="false" />
+          <Property Name="AnoVacacionDesde" Type="date" Nullable="false" />
+          <Property Name="AnoVacacionHasta" Type="date" Nullable="false" />
+          <Property Name="CantidadDiasVacacionesSegunTabla" Type="int" Nullable="false" />
+          <Property Name="CantidadDiasAnoParaCalculoProrrata" Type="int" Nullable="false" />
+          <Property Name="FactorProrrata" Type="decimal" Precision="5" Scale="4" Nullable="false" />
+          <Property Name="CantidadDiasVacacionesSegunTablaProrrata" Type="int" Nullable="false" />
+          <Property Name="VacacionesDisfrutadas_Cantidad" Type="int" Nullable="false" />
+          <Property Name="VacacionesDisfrutadas_Desde1raVacacion" Type="date" />
+          <Property Name="VacacionesDisfrutadas_HastaUltimaVacacion" Type="date" />
+          <Property Name="VacacionesDisfrutadas_TotalDias" Type="int" Nullable="false" />
+          <Property Name="VacacionesDisfrutadas_TotalDiasFeriados" Type="int" Nullable="false" />
+          <Property Name="VacacionesDisfrutadas_TotalDiasDisfrutados" Type="int" Nullable="false" />
+          <Property Name="DiasPendientes_AnosAnteriores" Type="int" Nullable="false" />
+          <Property Name="DiasPendientes_EsteAno" Type="int" Nullable="false" />
+          <Property Name="DiasPendientes_Total" Type="int" Nullable="false" />
+          <Property Name="FRegistro" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Usuario" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="localdbNominaModelStoreContainer">
+          <EntitySet Name="Vacaciones_DiasPendientes" EntityType="Self.Vacaciones_DiasPendientes" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="localdbNominaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="localdbNominaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Vacaciones_DiasPendientes" EntityType="localdbNominaModel.Vacaciones_DiasPendientes" />
+        </EntityContainer>
+        <EntityType Name="Vacaciones_DiasPendientes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreCiaContab" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NombreDepartamento" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Empleado" Type="Int32" Nullable="false" />
+          <Property Name="NombreEmpleado" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AliasEmpleado" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="NumeroVacacion" Type="Int32" Nullable="false" />
+          <Property Name="AnoVacacionDesde" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="AnoVacacionHasta" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CantidadDiasVacacionesSegunTabla" Type="Int32" Nullable="false" />
+          <Property Name="CantidadDiasAnoParaCalculoProrrata" Type="Int32" Nullable="false" />
+          <Property Name="FactorProrrata" Type="Decimal" Nullable="false" Precision="5" Scale="4" />
+          <Property Name="CantidadDiasVacacionesSegunTablaProrrata" Type="Int32" Nullable="false" />
+          <Property Name="VacacionesDisfrutadas_Cantidad" Type="Int32" Nullable="false" />
+          <Property Name="VacacionesDisfrutadas_Desde1raVacacion" Type="DateTime" Precision="0" />
+          <Property Name="VacacionesDisfrutadas_HastaUltimaVacacion" Type="DateTime" Precision="0" />
+          <Property Name="VacacionesDisfrutadas_TotalDias" Type="Int32" Nullable="false" />
+          <Property Name="VacacionesDisfrutadas_TotalDiasFeriados" Type="Int32" Nullable="false" />
+          <Property Name="VacacionesDisfrutadas_TotalDiasDisfrutados" Type="Int32" Nullable="false" />
+          <Property Name="DiasPendientes_AnosAnteriores" Type="Int32" Nullable="false" />
+          <Property Name="DiasPendientes_EsteAno" Type="Int32" Nullable="false" />
+          <Property Name="DiasPendientes_Total" Type="Int32" Nullable="false" />
+          <Property Name="FRegistro" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="localdbNominaModelStoreContainer" CdmEntityContainer="localdbNominaEntities">
+          <EntitySetMapping Name="Vacaciones_DiasPendientes">
+            <EntityTypeMapping TypeName="localdbNominaModel.Vacaciones_DiasPendientes">
+              <MappingFragment StoreEntitySet="Vacaciones_DiasPendientes">
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="FRegistro" ColumnName="FRegistro" />
+                <ScalarProperty Name="DiasPendientes_Total" ColumnName="DiasPendientes_Total" />
+                <ScalarProperty Name="DiasPendientes_EsteAno" ColumnName="DiasPendientes_EsteAno" />
+                <ScalarProperty Name="DiasPendientes_AnosAnteriores" ColumnName="DiasPendientes_AnosAnteriores" />
+                <ScalarProperty Name="VacacionesDisfrutadas_TotalDiasDisfrutados" ColumnName="VacacionesDisfrutadas_TotalDiasDisfrutados" />
+                <ScalarProperty Name="VacacionesDisfrutadas_TotalDiasFeriados" ColumnName="VacacionesDisfrutadas_TotalDiasFeriados" />
+                <ScalarProperty Name="VacacionesDisfrutadas_TotalDias" ColumnName="VacacionesDisfrutadas_TotalDias" />
+                <ScalarProperty Name="VacacionesDisfrutadas_HastaUltimaVacacion" ColumnName="VacacionesDisfrutadas_HastaUltimaVacacion" />
+                <ScalarProperty Name="VacacionesDisfrutadas_Desde1raVacacion" ColumnName="VacacionesDisfrutadas_Desde1raVacacion" />
+                <ScalarProperty Name="VacacionesDisfrutadas_Cantidad" ColumnName="VacacionesDisfrutadas_Cantidad" />
+                <ScalarProperty Name="CantidadDiasVacacionesSegunTablaProrrata" ColumnName="CantidadDiasVacacionesSegunTablaProrrata" />
+                <ScalarProperty Name="FactorProrrata" ColumnName="FactorProrrata" />
+                <ScalarProperty Name="CantidadDiasAnoParaCalculoProrrata" ColumnName="CantidadDiasAnoParaCalculoProrrata" />
+                <ScalarProperty Name="CantidadDiasVacacionesSegunTabla" ColumnName="CantidadDiasVacacionesSegunTabla" />
+                <ScalarProperty Name="AnoVacacionHasta" ColumnName="AnoVacacionHasta" />
+                <ScalarProperty Name="AnoVacacionDesde" ColumnName="AnoVacacionDesde" />
+                <ScalarProperty Name="NumeroVacacion" ColumnName="NumeroVacacion" />
+                <ScalarProperty Name="AliasEmpleado" ColumnName="AliasEmpleado" />
+                <ScalarProperty Name="NombreEmpleado" ColumnName="NombreEmpleado" />
+                <ScalarProperty Name="Empleado" ColumnName="Empleado" />
+                <ScalarProperty Name="NombreDepartamento" ColumnName="NombreDepartamento" />
+                <ScalarProperty Name="NombreCiaContab" ColumnName="NombreCiaContab" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

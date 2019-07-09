@@ -1,0 +1,63 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage_Simple.master.cs" Inherits="NominaASP.MasterPage_Simple" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
+<%--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">--%>
+<!DOCTYPE html>
+
+<html lang="en">
+<head id="Head1" runat="server">
+    <title>Untitled Page</title>
+
+    <link href="Styles/general.css" rel="stylesheet" />
+    <link href="Styles/ajaxControlToolkit.css" rel="stylesheet" />
+
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body>
+    <form id="form1" runat="server">
+    <div style="text-align: center; ">
+
+        <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
+        </asp:ToolkitScriptManager>
+
+        <div style="text-align: center; ">
+            <table style="border: 1px solid #A2A2A2" >
+                <tr>
+                    <td>
+                        <div style="border-bottom-style: solid; border-bottom: 1px #36c; background-color: #d5ddf3;
+                            border: 1px solid #A2A2A2; margin-bottom: 15px;">
+                            <table style="width: 100%;">
+                                <tr style="height: 25px;">
+                                    <td style="width: 10%;">
+                                        <span class="FontMediumBoldNavy"><b><i>&nbsp;&nbsp;Nómina</i></b></span>
+                                    </td>
+                                    <td style="width: 80%; white-space: nowrap; ">
+                                        <h3 id="PageTitle_TableCell" runat="server" style="margin: 0px; "></h3>
+                                    </td>
+                                    <td style="width: 10%; text-align: center; ">
+                                        <asp:UpdateProgress ID="UpdateProgress1" runat="server" DisplayAfter="0" DynamicLayout="True">
+                                            <ProgressTemplate>
+                                                <span style="margin-right: 15px;">
+                                                    <img id="Img1" runat="server" alt="...loading" src="Pictures/img/circle-ball-dark-antialiased.gif" /></span>
+                                            </ProgressTemplate>
+                                        </asp:UpdateProgress>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    </form>
+</body>
+</html>

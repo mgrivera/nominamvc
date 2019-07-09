@@ -1,0 +1,52 @@
+Ok, los archivos que existían antes fueron eliminados ...
+Agregando el documento para ALFONSO E CARREÑO  M.
+Ok, completamos el documento para ALFONSO E CARREÑO  M.
+Agregando el documento para ALFREDO STORY
+Ok, completamos el documento para ALFREDO STORY
+Agregando el documento para ANA MARIA EUGENIA MARIN GUARDIA
+Ok, completamos el documento para ANA MARIA EUGENIA MARIN GUARDIA
+Agregando el documento para ANA MERCEDES TIAPA
+Ok, completamos el documento para ANA MERCEDES TIAPA
+Agregando el documento para CARLOS ALBERTO RENGIFO MARTINEZ
+Ok, completamos el documento para CARLOS ALBERTO RENGIFO MARTINEZ
+Agregando el documento para CELESTINO ROJAS.
+Ok, completamos el documento para CELESTINO ROJAS.
+Agregando el documento para DENNIFER L INOJOSA MEDINA
+Ok, completamos el documento para DENNIFER L INOJOSA MEDINA
+Agregando el documento para EDGAR ALBURQUEQUE
+Ok, completamos el documento para EDGAR ALBURQUEQUE
+Agregando el documento para EVELIN BLANCO
+Ok, completamos el documento para EVELIN BLANCO
+Agregando el documento para JEAN PETER PEREZ MARQUEZ
+Ok, completamos el documento para JEAN PETER PEREZ MARQUEZ
+Agregando el documento para JEIMY M. FUENTES MONTILVA
+Ok, completamos el documento para JEIMY M. FUENTES MONTILVA
+Agregando el documento para JONATHAN RONDON
+Ok, completamos el documento para JONATHAN RONDON
+Agregando el documento para JORGE LUIS PEREZ
+Ok, completamos el documento para JORGE LUIS PEREZ
+Agregando el documento para JOSE ANTONIO LASSO ALCALA
+Ok, completamos el documento para JOSE ANTONIO LASSO ALCALA
+Agregando el documento para JOSELYN ALMEIDA
+Ok, completamos el documento para JOSELYN ALMEIDA
+Agregando el documento para LY VICTORIA PACHECO IDROBO
+Ok, completamos el documento para LY VICTORIA PACHECO IDROBO
+Agregando el documento para MERCY E. SOSA R.
+Ok, completamos el documento para MERCY E. SOSA R.
+Agregando el documento para MIGUEL HIDALGO
+Ok, completamos el documento para MIGUEL HIDALGO
+Agregando el documento para NIDIA MARGARITA PAJARO SANCHEZ
+Ok, completamos el documento para NIDIA MARGARITA PAJARO SANCHEZ
+Agregando el documento para RAUL ZARATE
+Ok, completamos el documento para RAUL ZARATE
+Agregando el documento para ROSA CASARES ESPINOZA
+Ok, completamos el documento para ROSA CASARES ESPINOZA
+Agregando el documento para SAMUEL VASQUEZ
+Ok, completamos el documento para SAMUEL VASQUEZ
+Ok, comenzamos consolidación de documentos en 1 solo ...
+Ok, creamos el documento consolidado (docx) con todos los documentos individuales  ...
+Configurando Links para mostrar documentos (docx y pdf) ...
+Ok, los links fueron configurados ...
+pdf: vamos a crear instancia de la clase 'pdfFunctions'  ...
+pdf: Ok la clase 'pdfFunctions' fue inicializada  ...
+pdf: Ok, finaliza, en forma correcta, la conversión al pdf con 'pdfFunctions'  ...
