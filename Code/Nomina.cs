@@ -164,7 +164,6 @@ namespace NominaASP.Code
                         // debe existir un registro de utilidades al cual corresponda esta nómina 
 
                         Utilidade utilidades = context.Utilidades.Where(u => u.ID == nominaHeader.ProvieneDe_ID).FirstOrDefault();
-
                         if (utilidades == null)
                         {
                             errorMessage = "Error inesperado: no hemos podido leer el registro de definición de utilidades que corresponde a esta nómina. " +

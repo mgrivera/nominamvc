@@ -16,7 +16,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FechaConsulta, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(model => model.FechaConsulta, new { @class = "form-control datefield", type = "date" })
+                @*@Html.TextBoxFor(model => model.FechaConsulta, "{0:d}", new { @class = "form-control datefield", type = "date" })*@
+                @Html.TextBoxFor(model => model.FechaConsulta, "{0:d}", new { @class = "form-control", type = "date" })
                 @Html.ValidationMessageFor(model => model.FechaConsulta)
             </div>
         </div>
