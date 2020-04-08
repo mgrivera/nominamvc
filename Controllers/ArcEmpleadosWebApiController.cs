@@ -1,6 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Packaging;
 using MongoDB.Driver;
-using MongoDB.Driver.Builders;
 using NominaASP.Models;
 using NominaASP.Models.MongoDB;
 using OpenXmlPowerTools;
@@ -19,7 +18,6 @@ namespace NominaASP.Controllers
     public class ArcEmpleadosWebApiController : ApiController
     {
         [HttpGet]
-        //[Route("api/ArcEmpleadosWebApi/LeerDatosIniciales")]
         public HttpResponseMessage LeerDatosIniciales()
         {
             if (!User.Identity.IsAuthenticated)
@@ -32,14 +30,12 @@ namespace NominaASP.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.OK, errorResult);
             }
+ 
+            string contabm_mongodb_connection = System.Web.Configuration.WebConfigurationManager.AppSettings["contabm_mongodb_connectionString"];
+            string contabm_mongodb_name = System.Web.Configuration.WebConfigurationManager.AppSettings["contabM_mongodb_name"];
 
-            // --------------------------------------------------------------------------------------------------------------------------
-            // establecemos una conexión a mongodb 
-
-            var client = new MongoClient("mongodb://localhost");
-            var server = client.GetServer();
-            var mongoDataBase = server.GetDatabase("dbContab");
-            // --------------------------------------------------------------------------------------------------------------------------
+            var client = new MongoClient(contabm_mongodb_connection);
+            var mongoDataBase = client.GetDatabase(contabm_mongodb_name);
 
             var arcEmpleadosMongoCollection = mongoDataBase.GetCollection<ARCEmpleado>("ARCEmpleado");
 
@@ -47,10 +43,11 @@ namespace NominaASP.Controllers
             {
                 // --------------------------------------------------------------------------------------------------------------------------
                 // solo para que ocura una exception si mongo no está iniciado ... nótese que antes, cuando establecemos mongo, no ocurre un 
-                // exception si mongo no está iniciado ...  
+                // exception si mongo no está iniciado ... 
+                var builder = Builders<ARCEmpleado>.Filter;
+                var filter = builder.Eq(x => x.Cia, -99999999);
 
-                var queryDeleteDocs = Query<ARCEmpleado>.EQ(x => x.Cia, -9999999);
-                arcEmpleadosMongoCollection.Remove(queryDeleteDocs);
+                arcEmpleadosMongoCollection.DeleteManyAsync(filter);
             }
             catch (Exception ex)
             {
@@ -93,10 +90,18 @@ namespace NominaASP.Controllers
                         nombre = companiaSeleccionada.Nombre
                     };
 
-                    // ahora obtenemos una lista de años en mongodb 
+                    //// ahora obtenemos una lista de años en mongodb 
+                    //var builder = Builders<ARCEmpleado>.Filter;
+                    //var filter = builder.Eq(x => x.Cia, ciaContabSeleccionada.numero);
 
-                    var query = Query<ARCEmpleado>.EQ(a => a.Cia, ciaContabSeleccionada.numero);
-                    List<int> listaAnos = arcEmpleadosMongoCollection.Find(query).Select(a => a.Ano).Distinct().ToList(); 
+                    //// var listaAnos = arcEmpleadosMongoCollection.Find(filter).Project(Builders<ARCEmpleado>.Projection.Include(a => a.Ano)).ToList();
+                    //// var listaAnos = arcEmpleadosMongoCollection.Find(filter).Project(v => new { v.Ano }).Distinct().ToList();
+
+                    var listaAnos = arcEmpleadosMongoCollection.AsQueryable<ARCEmpleado>()
+                                                               .Where(e => e.Cia == ciaContabSeleccionada.numero)
+                                                               .Select(e => e.Ano)
+                                                               .Distinct()
+                                                               .ToList();
 
                     var result = new
                     {
@@ -141,15 +146,14 @@ namespace NominaASP.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, errorResult);
             }
 
+            string contabm_mongodb_connection = System.Web.Configuration.WebConfigurationManager.AppSettings["contabm_mongodb_connectionString"];
+            string contabm_mongodb_name = System.Web.Configuration.WebConfigurationManager.AppSettings["contabM_mongodb_name"];
+
+            var client = new MongoClient(contabm_mongodb_connection);
+            var mongoDataBase = client.GetDatabase(contabm_mongodb_name);
+
             try
             {
-                // --------------------------------------------------------------------------------------------------------------------------
-                // establecemos una conexión a mongodb 
-                var client = new MongoClient("mongodb://localhost");
-                var server = client.GetServer();
-                var mongoDataBase = server.GetDatabase("dbContab");
-                // --------------------------------------------------------------------------------------------------------------------------
-
                 var arcEmpleadosMongoCollection = mongoDataBase.GetCollection<ARCEmpleado>("ARCEmpleado");
 
                 try
@@ -157,8 +161,10 @@ namespace NominaASP.Controllers
                     // --------------------------------------------------------------------------------------------------------------------------
                     // solo para que ocura una exception si mongo no está iniciado ... nótese que antes, cuando establecemos mongo, no ocurre un 
                     // exception si mongo no está iniciado ...  
-                    var queryDeleteDocs = Query<ARCEmpleado>.EQ(x => x.Cia, -9999999);
-                    arcEmpleadosMongoCollection.Remove(queryDeleteDocs);
+                    var builder = Builders<ARCEmpleado>.Filter;
+                    var filter = builder.Eq(x => x.Cia, -99999999);
+
+                    arcEmpleadosMongoCollection.DeleteManyAsync(filter);
                 }
                 catch (Exception ex)
                 {
@@ -249,25 +255,24 @@ namespace NominaASP.Controllers
                         }
                     }
 
-
-
                     if (arcEmpleado != null)
                     {
                         // arcEmpleado == null: un empleado que no tuvo nominas en el año ... 
 
                         // primero buscamos el registro en mongo; si existe, lo eliminamos ... 
+                        var builder = Builders<ARCEmpleado>.Filter;
+                        var filter = builder.And(
+                                builder.Eq(x => x.Empleado, empleado.Empleado),
+                                builder.Eq(x => x.Ano, ano),
+                                builder.Eq(x => x.Cia, ciaContabSeleccionada)
+                            );
 
-                        var queryARCEmpleado = Query.And(
-                                Query.EQ("Empleado", empleado.Empleado),
-                                Query.EQ("Ano", ano),
-                                Query.EQ("Cia", ciaContabSeleccionada));
 
-
-                        ARCEmpleado arcAnteriorEmpleado = arcEmpleadosMongoCollection.FindOne(queryARCEmpleado);
+                        ARCEmpleado arcAnteriorEmpleado = arcEmpleadosMongoCollection.Find(filter).FirstOrDefault(); 
 
                         if (arcAnteriorEmpleado != null)
                         {
-                            arcEmpleadosMongoCollection.Remove(queryARCEmpleado);
+                            arcEmpleadosMongoCollection.DeleteOne(filter);
                             cantidadArcEmpleadosEliminados++;
                         }
 
@@ -277,7 +282,7 @@ namespace NominaASP.Controllers
                         arcEmpleado.Usuario = User.Identity.Name;
 
                         // finalmente, agregamos el registro a mongo ... 
-                        arcEmpleadosMongoCollection.Insert(arcEmpleado);
+                        arcEmpleadosMongoCollection.InsertOne(arcEmpleado);
 
                         cantidadArcEmpleadosAgregados++;
                     }
@@ -312,8 +317,6 @@ namespace NominaASP.Controllers
             }
         }
 
-
-
         [HttpGet]
         [Route("api/ArcEmpleadosWebApi/ConsultarArcEmpleadosParaUnAno")]
         public HttpResponseMessage ConsultarArcEmpleadosParaUnAno(int ano, int ciaContabSeleccionada)
@@ -329,14 +332,11 @@ namespace NominaASP.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, errorResult);
             }
 
-            
-            // --------------------------------------------------------------------------------------------------------------------------
-            // establecemos una conexión a mongodb 
+            string contabm_mongodb_connection = System.Web.Configuration.WebConfigurationManager.AppSettings["contabm_mongodb_connectionString"];
+            string contabm_mongodb_name = System.Web.Configuration.WebConfigurationManager.AppSettings["contabM_mongodb_name"];
 
-            var client = new MongoClient("mongodb://localhost");
-            var server = client.GetServer();
-            var mongoDataBase = server.GetDatabase("dbContab");
-            // --------------------------------------------------------------------------------------------------------------------------
+            var client = new MongoClient(contabm_mongodb_connection);
+            var mongoDataBase = client.GetDatabase(contabm_mongodb_name);
 
             var arcEmpleadosMongoCollection = mongoDataBase.GetCollection<ARCEmpleado>("ARCEmpleado");
 
@@ -345,9 +345,10 @@ namespace NominaASP.Controllers
                 // --------------------------------------------------------------------------------------------------------------------------
                 // solo para que ocura una exception si mongo no está iniciado ... nótese que antes, cuando establecemos mongo, no ocurre un 
                 // exception si mongo no está iniciado ...  
+                var builder0 = Builders<ARCEmpleado>.Filter;
+                var filter0 = builder0.Eq(x => x.Cia, -99999999);
 
-                var queryDeleteDocs = Query<ARCEmpleado>.EQ(x => x.Cia, -9999999);
-                arcEmpleadosMongoCollection.Remove(queryDeleteDocs);
+                arcEmpleadosMongoCollection.DeleteManyAsync(filter0);
             }
             catch (Exception ex)
             {
@@ -365,14 +366,15 @@ namespace NominaASP.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, errorResult);
             }
 
-
-            var queryARCEmpleado = Query.And(
-                            Query.EQ("Ano", ano),
-                            Query.EQ("Cia", ciaContabSeleccionada));
-
+            var builder = Builders<ARCEmpleado>.Filter;
+            var filter = builder.And(
+                            builder.Eq(x => x.Ano, ano),
+                            builder.Eq(x => x.Cia, ciaContabSeleccionada)
+                );
+         
             try
             {
-                var listaArcEmpleados = arcEmpleadosMongoCollection.Find(queryARCEmpleado).ToList(); 
+                var listaArcEmpleados = arcEmpleadosMongoCollection.Find(filter).ToList(); 
 
                 var result = new
                 {
@@ -399,7 +401,6 @@ namespace NominaASP.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, errorResult);
             }
         }
-
 
         [HttpGet]
         [Route("api/ArcEmpleadosWebApi/GetListaPlantillasWord")]

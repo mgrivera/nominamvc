@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NominaASP</RootNamespace>
     <AssemblyName>NominaASP</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -66,6 +66,9 @@
     <Reference Include="ClosedXML">
       <HintPath>..\packages\ClosedXML.0.69.2\lib\net40-client\ClosedXML.dll</HintPath>
     </Reference>
+    <Reference Include="DnsClient, Version=1.0.7.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
+      <HintPath>..\packages\DnsClient.1.0.7\lib\net45\DnsClient.dll</HintPath>
+    </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DocumentFormat.OpenXml.1.0\lib\DocumentFormat.OpenXml.dll</HintPath>
@@ -95,11 +98,14 @@
     <Reference Include="Microsoft.WindowsAzure.Storage">
       <HintPath>..\packages\WindowsAzure.Storage.2.1.0.4\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Bson">
-      <HintPath>..\packages\mongocsharpdriver.1.10.0\lib\net35\MongoDB.Bson.dll</HintPath>
+    <Reference Include="MongoDB.Bson, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.7.0\lib\net45\MongoDB.Bson.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Driver">
-      <HintPath>..\packages\mongocsharpdriver.1.10.0\lib\net35\MongoDB.Driver.dll</HintPath>
+    <Reference Include="MongoDB.Driver, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.7.0\lib\net45\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.7.0\lib\net45\MongoDB.Driver.Core.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -120,6 +126,9 @@
       <HintPath>..\packages\FreeSpire.Doc.5.1\lib\net40\Spire.Pdf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.3.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -129,15 +138,19 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.0.0\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Spatial, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\System.Spatial.5.2.0\lib\net40\System.Spatial.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -361,6 +374,7 @@
     <Content Include="Pictures\filter_25x25.png" />
     <Content Include="Pictures\first_16x16.gif" />
     <Content Include="Pictures\Gears_25x25.png" />
+    <Content Include="Pictures\img\animated1.gif" />
     <Content Include="Pictures\img\circle-ball-dark-antialiased.gif" />
     <Content Include="Pictures\img\jquery.gif" />
     <Content Include="Pictures\last_16x16.gif" />
@@ -523,6 +537,16 @@
       <LastGenOutput>NominaModel.cs</LastGenOutput>
       <DependentUpon>NominaModel.edmx</DependentUpon>
     </Content>
+    <Content Include="config\appSettings.lockton.config" />
+    <Content Include="config\connectionStrings.lockton.config" />
+    <Content Include="config\appSettings.risk.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="config\connectionStrings.risk.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Properties\PublishProfiles\lockton smarter asp.net.pubxml" />
+    <None Include="Properties\PublishProfiles\risk smarter asp.net.pubxml" />
     <None Include="Scripts\jquery 2.1\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -564,8 +588,8 @@
     <Content Include="Web.sitemap">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Word\ArcEmpleados\basica_manuel.docx" />
-    <Content Include="Word\ArcEmpleados\plantillas\basica.docx" />
+    <Content Include="Word\ArcEmpleados\plantillas\basicaGlobex.docx" />
+    <Content Include="Word\ArcEmpleados\plantillas\basicaRisk.docx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\Login.aspx.cs">
@@ -1058,83 +1082,9 @@
     <Content Include="Scripts\jquery 2.1\jquery-2.1.0.min.map" />
     <Content Include="Views\ArcEmpleados\Index old.cshtml" />
     <Content Include="Views\ArcEmpleados\Index.cshtml" />
-    <Content Include="Temp\RecibosPago\Globx\ALEJANDRATERESAPETITZAPATA_1_84_manuel.docx" />
-    <Content Include="Temp\RecibosPago\Globx\ALEJANDRATERESAPETITZAPATA_1_84_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\Globx\ALEXANDERAPONTEMANZOL_1_105_manuel.docx" />
-    <Content Include="Temp\RecibosPago\Globx\ALEXANDERAPONTEMANZOL_1_105_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\Globx\CÉSARABRAHAMMACHADOCABRERA_1_80_manuel.docx" />
-    <Content Include="Temp\RecibosPago\Globx\CÉSARABRAHAMMACHADOCABRERA_1_80_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\Globx\DIALISCECILIAROJASPONTE_1_79_manuel.docx" />
-    <Content Include="Temp\RecibosPago\Globx\DIALISCECILIAROJASPONTE_1_79_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\Globx\JESÚSDANIELSUCRESOULÉS_1_100_manuel.docx" />
-    <Content Include="Temp\RecibosPago\Globx\JESÚSDANIELSUCRESOULÉS_1_100_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\Globx\JOSÉABRAHAMMACHADOPULIDO_1_77_manuel.docx" />
-    <Content Include="Temp\RecibosPago\Globx\JOSÉABRAHAMMACHADOPULIDO_1_77_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\Globx\JOSÉENRIQUEMARCANORODRÍGUEZ_1_102_manuel.docx" />
-    <Content Include="Temp\RecibosPago\Globx\JOSÉENRIQUEMARCANORODRÍGUEZ_1_102_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\Globx\JOSÉGREGORIOCALDERÓNCORDERO_1_81_manuel.docx" />
-    <Content Include="Temp\RecibosPago\Globx\JOSÉGREGORIOCALDERÓNCORDERO_1_81_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\Globx\LILACOROMOTOCARRERASMACHADO_1_103_manuel.docx" />
-    <Content Include="Temp\RecibosPago\Globx\LILACOROMOTOCARRERASMACHADO_1_103_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\Globx\MARIAEUGENIAARIASARAUJO_1_94_manuel.docx" />
-    <Content Include="Temp\RecibosPago\Globx\MARIAEUGENIAARIASARAUJO_1_94_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\Globx\MARÍAELENADOMINGUEZNAYA_1_86_manuel.docx" />
-    <Content Include="Temp\RecibosPago\Globx\MARÍAELENADOMINGUEZNAYA_1_86_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\Globx\MAYRAALEJANDRAMÁRQUEZBEAMONT_1_98_manuel.docx" />
-    <Content Include="Temp\RecibosPago\Globx\MAYRAALEJANDRAMÁRQUEZBEAMONT_1_98_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\Globx\PAOLAANDREINAASUAJEFERNÁNDEZ_1_104_manuel.docx" />
-    <Content Include="Temp\RecibosPago\Globx\PAOLAANDREINAASUAJEFERNÁNDEZ_1_104_manuel.pdf" />
     <Content Include="Temp\RecibosPago\Globx\RecibosPago.docx" />
-    <Content Include="Temp\RecibosPago\Globx\RecibosPago_manuel.docx" />
     <Content Include="Temp\RecibosPago\LVzla\RecibosPago.docx" />
-    <Content Include="Temp\RecibosPago\RISK\ALFONSOECARREÑOM_1_13_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\ALFREDOSTORY_1_4_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\ALFREDOSTORY_1_4_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\ANAMARIAEUGENIAMARINGUARDIA_1_21_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\ANAMARIAEUGENIAMARINGUARDIA_1_21_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\ANAMERCEDESTIAPA_1_55_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\ANAMERCEDESTIAPA_1_55_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\CARLOSALBERTORENGIFOMARTINEZ_1_59_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\CELESTINOANTONIOROJASMEDINA_1_10_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\CELESTINOROJAS_1_10_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\DENNIFERLINOJOSAMEDINA_1_47_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\EDGARALBURQUEQUE_1_60_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\EDGARALBURQUEQUE_1_60_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\EVELINBLANCO_1_56_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\EVELINNATHALYBLANCOPÉREZ_1_56_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\EVELINNATHALYBLANCOPÉREZ_1_56_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\JEANPETERPEREZMARQUEZ_1_57_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\JEANPETERPEREZMARQUEZ_1_57_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\JEIMYMARIANAFUENTESMONTILVA_1_41_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\JEIMYMARIANAFUENTESMONTILVA_1_41_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\JEIMYMFUENTESMONTILVA_1_41_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\JONATHANRONDON_1_12_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\JONATHANRONDON_1_12_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\JORGELUISPEREZ_1_6_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\JORGELUISPEREZ_1_6_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\JOSEANTONIOLASSOALCALA_1_39_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\JOSEANTONIOLASSOALCALA_1_39_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\JOSELYNALMEIDA_1_48_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\JOSELYNDELVALLEALMEIDASOSA_1_48_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\JOSELYNDELVALLEALMEIDASOSA_1_48_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\LYVICTORIAPACHECOIDROBO_1_22_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\LYVICTORIAPACHECOIDROBO_1_22_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\ManuelRivera_1_61_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\MERCYEDITHSOSAR_1_38_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\MERCYEDITHSOSAR_1_38_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\MERCYESOSAR_1_38_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\MIGUELHIDALGO_1_5_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\MIGUELHIDALGO_1_5_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\NIDIAMARGARITAPAJAROSANCHEZ_1_58_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\RAULZARATE_1_9_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\RAULZARATE_1_9_manuel.pdf" />
     <Content Include="Temp\RecibosPago\RISK\RecibosPago.docx" />
-    <Content Include="Temp\RecibosPago\RISK\RecibosPago_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\RecibosPago_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\ROSACASARESESPINOZA_1_46_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\ROSACASARESESPINOZA_1_46_manuel.pdf" />
-    <Content Include="Temp\RecibosPago\RISK\SAMUELVASQUEZ_1_7_manuel.docx" />
-    <Content Include="Temp\RecibosPago\RISK\SAMUELVASQUEZ_1_7_manuel.pdf" />
     <Content Include="Temp\VacacionesDiasPendientes_manuel.xlsx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1147,16 +1097,16 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Empleados\Consulta\ConsultaEmpleados.rdlc" />
+    <Content Include="Empleados\Consulta\ConsultaEmpleados.rdlc" />
     <EmbeddedResource Include="Empleados\Faltas\ConsultaEmpleadosFaltas.rdlc" />
     <EmbeddedResource Include="Empleados\Vacaciones\DiasVacaciones.rdlc" />
-    <EmbeddedResource Include="Nomina\AsientosContables\ComprobantesContables.rdlc" />
-    <EmbeddedResource Include="Nomina\Consulta\Nomina.rdlc" />
-    <EmbeddedResource Include="Nomina\Consulta\NominaPorRubroDepartamento.rdlc" />
-    <EmbeddedResource Include="Nomina\Nomina\NominaPorRubroDepartamento.rdlc">
+    <Content Include="Nomina\AsientosContables\ComprobantesContables.rdlc" />
+    <Content Include="Nomina\Consulta\Nomina.rdlc" />
+    <Content Include="Nomina\Consulta\NominaPorRubroDepartamento.rdlc" />
+    <Content Include="Nomina\Nomina\NominaPorRubroDepartamento.rdlc">
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Nomina\Nomina\Nomina.rdlc" />
+    </Content>
+    <Content Include="Nomina\Nomina\Nomina.rdlc" />
     <EmbeddedResource Include="Nomina\PrestacionesSociales\PrestacionesSociales.rdlc" />
   </ItemGroup>
   <PropertyGroup>

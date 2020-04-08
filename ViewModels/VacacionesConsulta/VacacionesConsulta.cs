@@ -16,7 +16,6 @@ using PagedList;
 using ClosedXML.Excel;
 using MongoDB.Driver;
 using NominaASP.Models.MongoDB;
-using MongoDB.Driver.Builders;
 
 namespace NominaASP.ViewModels.VacacionesConsulta
 {
@@ -36,30 +35,28 @@ namespace NominaASP.ViewModels.VacacionesConsulta
 
         //public PagedList<VacacionConsulta> VacacionesDisfrutadas { get; set; }
         public StaticPagedList<VacacionConsulta> VacacionesDisfrutadas { get; set; }
-        
+
+        private IMongoDatabase _mongoDataBase = null;
+
         public bool CalcularVacaciones(string userName, out string errorMessage)
         {
-            // --------------------------------------------------------------------------------------------------------------------------
-            // establecemos una conexión a mongodb; específicamente, a la base de datos del programa contabM; allí se registrará 
-            // todo en un futuro; además, ahora ya están registradas las vacaciones ... 
-            string contabM_mongodb_name = System.Web.Configuration.WebConfigurationManager.AppSettings["contabM_mongodb_name"];
+            string contabm_mongodb_connection = System.Web.Configuration.WebConfigurationManager.AppSettings["contabm_mongodb_connectionString"];
+            string contabm_mongodb_name = System.Web.Configuration.WebConfigurationManager.AppSettings["contabM_mongodb_name"];
 
-            var client = new MongoClient("mongodb://localhost");
-            var server = client.GetServer();
-            // nótese como el nombre de la base de datos mongo (de contabM) está en el archivo webAppSettings.config; 
-            // en este db se registran las vacaciones 
-            var mongoDataBase = server.GetDatabase(contabM_mongodb_name);
+            var client = new MongoClient(contabm_mongodb_connection);
+            _mongoDataBase = client.GetDatabase(contabm_mongodb_name);
 
-            var vacaciones_mongoCollection = mongoDataBase.GetCollection<vacacion>("vacaciones");
+            var vacaciones_mongoCollection = _mongoDataBase.GetCollection<vacacion>("vacaciones");
 
             try
             {
                 // --------------------------------------------------------------------------------------------------------------------------
                 // solo para que ocura una exception si mongo no está iniciado ... nótese que antes, cuando establecemos mongo, no ocurre un 
                 // exception si mongo no está iniciado ...  
+                var builder = Builders<vacacion>.Filter;
+                var filter = builder.Eq(x => x.cia, -99999999);
 
-                var queryDeleteDocs = Query<vacacion>.EQ(x => x.cia, -9999999);
-                vacaciones_mongoCollection.Remove(queryDeleteDocs);
+                vacaciones_mongoCollection.DeleteMany(filter);
             }
             catch (Exception ex)
             {
@@ -194,7 +191,7 @@ namespace NominaASP.ViewModels.VacacionesConsulta
                         vacacion.FactorProrrata = Math.Round(Convert.ToDecimal(vacacion.CantidadDiasAnoParaCalculoProrrata / 360D), 4);
                     }
 
-                    vacacion.CantidadDiasVacacionesSegunTablaProrrata = Convert.ToInt32(vacacion.CantidadDiasVacacionesSegunTabla * vacacion.FactorProrrata); 
+                    vacacion.CantidadDiasVacacionesSegunTablaProrrata = Convert.ToInt32(vacacion.CantidadDiasVacacionesSegunTabla * vacacion.FactorProrrata);
 
                     // ahora leemos las vacaciones que ha tomado el empleado en el período específico ... 
 
@@ -208,20 +205,21 @@ namespace NominaASP.ViewModels.VacacionesConsulta
 
                     // -----------------------------------------------------------------------------------------------
                     // construimos un cursor para leer las vacaciones en mongo 
-                    var mongoQuery = Query.And(
-                            Query<vacacion>.EQ(x => x.empleado, empleado.Empleado), 
-                            Query<vacacion>.GTE(x => x.salida, vacacion.AnoVacacionDesde), 
-                            Query<vacacion>.LTE(x => x.salida, vacacion.AnoVacacionHasta) 
-                        ); 
-                        
+                    var builder = Builders<vacacion>.Filter;
+                    var filter = builder.And(builder.Eq(x => x.empleado, empleado.Empleado),
+                                             builder.Gte(x => x.salida, vacacion.AnoVacacionDesde),
+                                             builder.Lte(x => x.salida, vacacion.AnoVacacionHasta)
+                                            );
+                    var sort = Builders<vacacion>.Sort.Ascending(v => v.salida); 
+ 
                     vacaciones_mongoCollection = null;
-                    vacaciones_mongoCollection = mongoDataBase.GetCollection<vacacion>("vacaciones");
+                    vacaciones_mongoCollection = _mongoDataBase.GetCollection<vacacion>("vacaciones");
 
-                    var mongoCursor = vacaciones_mongoCollection.Find(mongoQuery).Select(x => new { x.salida, x.regreso });    
+                    var mongoCursor = vacaciones_mongoCollection.Find(filter).Sort(sort).Project(x => new { x.salida, x.regreso });    
 
                     DateTime? fechaRegresoUltimaVacacion = null;
 
-                    foreach (var vacacionEmpleado in mongoCursor.OrderBy(v => v.salida))
+                    foreach (var vacacionEmpleado in mongoCursor.ToEnumerable())
                     {
                         if (vacacion.VacacionesDisfrutadas_Desde1raVacacion == null)
                             vacacion.VacacionesDisfrutadas_Desde1raVacacion = vacacionEmpleado.salida;

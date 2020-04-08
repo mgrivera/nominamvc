@@ -1,59 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-//using NominaASP.Models.Nomina;
 using NominaASP.Models;
 using System.Data.Entity.Infrastructure;
 using MongoDB.Driver;
 using NominaASP.Models.MongoDB;
-using MongoDB.Driver.Builders;
 
 namespace NominaASP.Code
 {
     public class Nomina
     {
         private int nominaHeaderID = 0;
-        private MongoDB.Driver.MongoDatabase contabM_mongodb_conexion = null; 
+        private IMongoDatabase _mongoDataBase = null; 
 
         public Nomina(int nominaHeaderID_Param, out string errorMessage)
         {
             errorMessage = ""; 
             nominaHeaderID = nominaHeaderID_Param;
-            
+
 
             // establecemos una conexión a mongodb; específicamente, a la base de datos del programa contabM; allí se registrará 
             // todo en un futuro; además, ahora ya están registradas las vacaciones ... 
-
-            string contabM_mongodb_name = System.Web.Configuration.WebConfigurationManager.AppSettings["contabM_mongodb_name"];
+            string contabm_mongodb_connection = System.Web.Configuration.WebConfigurationManager.AppSettings["contabm_mongodb_connectionString"];
+            string contabm_mongodb_name = System.Web.Configuration.WebConfigurationManager.AppSettings["contabM_mongodb_name"];
 
             // --------------------------------------------------------------------------------------------------------------------------
             // establecemos una conexión a mongodb 
-            var client = new MongoClient("mongodb://localhost");
-            var server = client.GetServer();
+            var client = new MongoClient(contabm_mongodb_connection);
             // nótese como el nombre de la base de datos mongo (de contabM) está en el archivo webAppSettings.config; en este db se registran las vacaciones 
-            var mongoDataBase = server.GetDatabase(contabM_mongodb_name);
+            _mongoDataBase = client.GetDatabase(contabm_mongodb_name);
             // --------------------------------------------------------------------------------------------------------------------------
 
-            var vacacionesMongoCollection = mongoDataBase.GetCollection<vacacion>("vacaciones");
+            var vacacionesMongoCollection = _mongoDataBase.GetCollection<vacacion>("vacaciones");
 
             try
             {
                 // --------------------------------------------------------------------------------------------------------------------------
                 // solo para que ocura una exception si mongo no está iniciado ... nótese que antes, cuando establecemos mongo, no ocurre un 
                 // exception si mongo no está iniciado ...  
+                var builder = Builders<vacacion>.Filter;
+                var filter = builder.Eq(x => x.cia, -99999999);
 
-                var queryDeleteDocs = Query<vacacion>.EQ(x => x.cia, -9999999);
-                vacacionesMongoCollection.Remove(queryDeleteDocs);
-
-                contabM_mongodb_conexion = mongoDataBase; 
+                vacacionesMongoCollection.DeleteManyAsync(filter);
             }
             catch (Exception ex)
             {
                 errorMessage = "Error al intentar establecer una conexión a la base de datos (mongo) de 'contabM'; el mensaje de error es: " + 
                                ex.Message;
                 return;
-            }; 
+            };
         }
         
         public void Ejecutar(out string errorMessage, out string resultadoEjecucionMessage)
@@ -155,8 +150,7 @@ namespace NominaASP.Code
                     }
                 case "V":           // vacaciones 
                     {
-                        EjecutarNominaVacaciones(context, contabM_mongodb_conexion, nominaHeader, parametrosNomina, parametroNominaSalarioMinimo, 
-                                                 out errorMessage, out resultadoEjecucionMessage);
+                        EjecutarNominaVacaciones(context, _mongoDataBase, nominaHeader, parametrosNomina, parametroNominaSalarioMinimo, out errorMessage, out resultadoEjecucionMessage);
                         break; 
                     }
                 case "U":           // utilidades 
@@ -204,6 +198,7 @@ namespace NominaASP.Code
                         }
 
                         EjecutarNominaUtilidades(context, 
+                                                 _mongoDataBase, 
                                                  nominaHeader, 
                                                  parametrosNomina, 
                                                  parametroNominaSalarioMinimo, 
@@ -281,7 +276,7 @@ namespace NominaASP.Code
                     return; 
 
                 // omitir si está en vacaciones 
-                if (EmpleadoEnVacaciones(context, contabM_mongodb_conexion, nominaHeader, empleado, out errorMessage))
+                if (EmpleadoEnVacaciones(context, _mongoDataBase, nominaHeader, empleado, out errorMessage))
                 {
                     cantidadEmpleadosEnVacaciones++; 
                     continue;
@@ -370,6 +365,7 @@ namespace NominaASP.Code
                 // aplicamos las deducciones obligatorias, solo si el usuario lo indica en el registro de nómina (header) 
                 if (nominaHeader.AgregarDeduccionesObligatorias) 
                     DeduccionesObligatorias(context,
+                                            _mongoDataBase, 
                                             nominaHeader,
                                             empleado,
                                             parametroNominaSalarioMinimo,
@@ -445,7 +441,7 @@ namespace NominaASP.Code
         }
 
         private void EjecutarNominaVacaciones(dbNominaEntities context,
-                                              MongoDB.Driver.MongoDatabase contabM_mongodb_conexion, 
+                                              IMongoDatabase mongoDataBase, 
                                               NominaASP.Models.tNominaHeader nominaHeader,
                                               ParametrosNomina parametrosNomina,
                                               Parametros_Nomina_SalarioMinimo parametroNominaSalarioMinimo,
@@ -466,10 +462,12 @@ namespace NominaASP.Code
             //                Query.EQ("Ano", ano),
             //                Query.EQ("Cia", ciaContabSeleccionada));
 
-            var vacaciones = contabM_mongodb_conexion.GetCollection("vacaciones"); 
+            var vacaciones = mongoDataBase.GetCollection<vacacion>("vacaciones");
 
-            var queryVacacion = Query.EQ("claveUnicaContab", nominaHeader.ProvieneDe_ID);
-            var vacacion = vacaciones.FindOneAs<vacacion>(queryVacacion); 
+            var builder = Builders<vacacion>.Filter;
+            var filter = builder.Eq(x => x.claveUnicaContab, nominaHeader.ProvieneDe_ID);
+
+            var vacacion = vacaciones.Find<vacacion>(filter).FirstOrDefault(); 
 
             if (vacacion == null)
             {
@@ -596,6 +594,7 @@ namespace NominaASP.Code
 
                 if (vacacion.aplicarDeduccionesFlag.HasValue && vacacion.aplicarDeduccionesFlag.Value)
                     DeduccionesObligatorias(context,
+                                            mongoDataBase, 
                                             nominaHeader,
                                             empleado,
                                             parametroNominaSalarioMinimo,
@@ -673,6 +672,7 @@ namespace NominaASP.Code
 
 
         private void EjecutarNominaUtilidades(dbNominaEntities context,
+                                              IMongoDatabase mongoDatabase, 
                                               tNominaHeader nominaHeader,
                                               ParametrosNomina parametrosNomina,
                                               Parametros_Nomina_SalarioMinimo parametroNominaSalarioMinimo, 
@@ -834,6 +834,7 @@ namespace NominaASP.Code
 
                 if (nominaHeader.AgregarDeduccionesObligatorias)
                     DeduccionesObligatorias(context,
+                                            mongoDatabase, 
                                             nominaHeader,
                                             empleado,
                                             parametroNominaSalarioMinimo,
@@ -916,7 +917,7 @@ namespace NominaASP.Code
 
 
         private bool EmpleadoEnVacaciones(dbNominaEntities context,             // ***VACACIONES***
-                                          MongoDB.Driver.MongoDatabase contabM_mongodb_conexion, 
+                                          IMongoDatabase mongoDataBase, 
                                           tNominaHeader nominaHeader, 
                                           tEmpleado empleado, 
                                           out string errorMessage) 
@@ -924,17 +925,20 @@ namespace NominaASP.Code
             // determinamos si un empleado está de vacaciones en el período de la nómina 
             errorMessage = "";
 
-            var vacacionMongoCollection = contabM_mongodb_conexion.GetCollection<vacacion>("vacaciones");
-            var queryVacacion = Query.And(
-                            Query.EQ("empleado", empleado.Empleado),
-                            Query.EQ("obviarEnLaNominaFlag", true),
-                            Query.LTE("desactivarNominaDesde", nominaHeader.FechaNomina.ToUniversalTime()),      // por alguna razón no pude hacer ésto! 
-                            Query.GTE("desactivarNominaHasta", nominaHeader.FechaNomina.ToUniversalTime()), 
-                            Query.EQ("cia", empleado.Cia));
+            var vacacionMongoCollection = mongoDataBase.GetCollection<vacacion>("vacaciones");
 
-            // MongoCursor<vacacion> queryVacaciones = vacacionMongoCollection.Find(queryVacacion);
+            var vacaciones = mongoDataBase.GetCollection<vacacion>("vacaciones");
 
-            vacacion vacacion = vacacionMongoCollection.Find(queryVacacion).FirstOrDefault(); 
+            var builder = Builders<vacacion>.Filter;
+            var filter = builder.And(
+                builder.Eq(x => x.empleado, empleado.Empleado),
+                builder.Eq(x => x.obviarEnLaNominaFlag, true),
+                builder.Lte(x => x.desactivarNominaDesde, nominaHeader.FechaNomina.ToUniversalTime()),
+                builder.Gte(x => x.desactivarNominaHasta, nominaHeader.FechaNomina.ToUniversalTime()),
+                builder.Eq(x => x.cia, empleado.Cia)
+                ); 
+
+            var vacacion = vacaciones.Find<vacacion>(filter).FirstOrDefault();
 
             if (vacacion != null)
                 return true; 
@@ -1140,7 +1144,7 @@ namespace NominaASP.Code
             NominaASP.Models.MongoDB.vacacion vacacion = null;          // ***VACACIONES***
           
             if (EmpleadoRegresaDeVacaciones(context,
-                                            contabM_mongodb_conexion, 
+                                            _mongoDataBase, 
                                             nominaHeader,
                                             empleado,
                                             out vacacion, 
@@ -1188,7 +1192,7 @@ namespace NominaASP.Code
 
         // ***VACACIONES***
         private bool EmpleadoRegresaDeVacaciones(dbNominaEntities context,
-                                                 MongoDB.Driver.MongoDatabase contabM_mongodb_conexion, 
+                                                 IMongoDatabase mongoDataBase, 
                                                  tNominaHeader nominaHeader,
                                                  tEmpleado empleado,
                                                  out NominaASP.Models.MongoDB.vacacion vacacion, 
@@ -1200,21 +1204,16 @@ namespace NominaASP.Code
             // si un empleado regresa de vacaciones, debemos aplicar un descuento (si corresponde) por días de sueldo adelantado en vacaciones ... 
             // además, en la nómina de vacaciones se indica la cantidad de días que se debe aplicar para el cálculo de las deducciones legales ... 
 
-            var vacacionesMongoCollection = contabM_mongodb_conexion.GetCollection<vacacion>("vacaciones");
+            var vacacionesMongoCollection = mongoDataBase.GetCollection<vacacion>("vacaciones");
 
-            var queryVacacion = Query.And(
-                            Query.EQ("grupoNomina", nominaHeader.tGruposEmpleado.Grupo),
-                            Query.EQ("empleado", empleado.Empleado),
-                            Query.EQ("proximaNomina_FechaNomina", nominaHeader.FechaNomina));
+            var builder = Builders<vacacion>.Filter;
+            var filter = builder.And(
+                builder.Eq(x => x.grupoNomina, nominaHeader.tGruposEmpleado.Grupo),
+                builder.Eq(x => x.empleado, empleado.Empleado),
+                builder.Eq(x => x.proximaNomina_FechaNomina, nominaHeader.FechaNomina)
+                );
 
-            vacacion = vacacionesMongoCollection.Find(queryVacacion).FirstOrDefault<vacacion>();
-
-           
-
-            //vacacion = context.Vacaciones.Where(v => v.tGruposEmpleado.Grupo == nominaHeader.tGruposEmpleado.Grupo &&
-            //                                         v.Empleado == empleado.Empleado &&
-            //                                         nominaHeader.FechaNomina == v.ProximaNomina_FechaNomina).
-            //                             FirstOrDefault();
+            vacacion = vacacionesMongoCollection.Find<vacacion>(filter).FirstOrDefault();
 
             if (vacacion == null)
                 return false;
@@ -1858,6 +1857,7 @@ namespace NominaASP.Code
 
 
         private void DeduccionesObligatorias(dbNominaEntities context,
+                                             IMongoDatabase mongoDatabase, 
                                              tNominaHeader nominaHeader,
                                              tEmpleado empleado, 
                                              Parametros_Nomina_SalarioMinimo parametroNominaSalarioMinimo, 
@@ -1892,7 +1892,7 @@ namespace NominaASP.Code
                 short? cantidadDiasBaseDeduccion = null; 
 
                 if (!DeterminarBaseDeduccion(context,
-                                             contabM_mongodb_conexion, 
+                                             mongoDatabase, 
                                              nominaHeader,
                                              empleado,
                                              deduccion, 
@@ -2109,7 +2109,7 @@ namespace NominaASP.Code
         }
 
         private bool DeterminarBaseDeduccion(dbNominaEntities context,
-                                             MongoDB.Driver.MongoDatabase contabM_mongodb_conexion, 
+                                             IMongoDatabase mongoDataBase, 
                                              tNominaHeader nominaHeader,
                                              tEmpleado empleado,
                                              DeduccionesNomina deduccion, 
@@ -2128,11 +2128,12 @@ namespace NominaASP.Code
             if (nominaHeader.Tipo == "V")
             {
                 // para tener el registro de vacaciones, si la nómina es de este tipo ... 
-                var vacaciones = contabM_mongodb_conexion.GetCollection("vacaciones");
+                var vacaciones = mongoDataBase.GetCollection<vacacion>("vacaciones");
 
-                var queryVacacion = Query.EQ("claveUnicaContab", nominaHeader.ProvieneDe_ID);
-                vacacion = vacaciones.FindOneAs<vacacion>(queryVacacion);
-                //vacacion = context.Vacaciones.Where(v => v.ClaveUnica == nominaHeader.ProvieneDe_ID).FirstOrDefault();      // antes vacaciones estaba en sql server
+                var builder = Builders<vacacion>.Filter;
+                var filter = builder.Eq(x => x.claveUnicaContab, nominaHeader.ProvieneDe_ID);
+
+                vacacion = vacaciones.Find<vacacion>(filter).FirstOrDefault();
             }
                 
 
@@ -2141,7 +2142,7 @@ namespace NominaASP.Code
 
             if (nominaHeader.Tipo != "V")
                 if (EmpleadoRegresaDeVacaciones(context,
-                                                contabM_mongodb_conexion, 
+                                                mongoDataBase, 
                                                 nominaHeader,
                                                 empleado,
                                                 out vacacion, 
