@@ -10,8 +10,9 @@
     <script type="text/javascript">
         function PopupWin(url, w, h) {
             ///Parameters url=page to open, w=width, h=height
-            myWindow = window.open(url, "external2", "width=" + w + ",height=" + h + ",resizable=yes,scrollbars=yes,status=no,location=no,toolbar=no,menubar=no,top=10px,left=8px");
-            myWindow.focus();
+            var left = parseInt((screen.availWidth / 2) - (w / 2));
+            var top = parseInt((screen.availHeight / 2) - (h / 2));
+            window.open(url, "external", "width=" + w + ",height=" + h + ",resizable=yes,scrollbars=yes,status=no,location=no,toolbar=no,menubar=no,left=" + left + ",top=" + top + "screenX=" + left + ",screenY=" + top);
         }
     </script>
 
@@ -77,39 +78,6 @@
                 </fieldset>
 
                 <br />
-
-                <%--para mostrar un diálogo que permita al usuario continuar/cancelar--%> 
-                <asp:Panel ID="pnlPopup" runat="server" CssClass="modalpopup" style="display:none">
-                    <div class="popup_container" style="width: 500px; ">
-                        <div class="popup_form_header" style="overflow: hidden; ">
-                            <div id="ModalPopupTitle_div" style="width: 85%; margin-top: 5px;  float: left; ">
-                                <span runat="server" id="ModalPopupTitle_span" style="font-weight: bold; display:block; text-align: left;"/> 
-                            </div>
-                            <div style="width: 15%; float: right; ">
-                                <asp:ImageButton ID="ImageButton1" runat="server" OnClientClick="$find('popup').hide(); return false;" ImageUrl="~/Pictures/PopupCloseButton.png" />
-                            </div>
-                        </div>
-                        <div class="inner_container">
-                            <div class="popup_form_content">
-                                <span runat="server" id="ModalPopupBody_span" style="display:block; text-align: left; "/> 
-                            </div>
-                            <div class="popup_form_footer">
-                                <asp:Button ID="btnOk" runat="server" Text="Continuar" OnClick="btnOk_Click" />
-                                <asp:Button ID="btnCancel" runat="server" Text="Cancelar" OnClientClick="$find('popup').hide(); return false;" Width="80px"/>
-                            </div>   
-                        </div>                                          
-                    </div>
-                </asp:Panel>
-
-                <asp:HiddenField ID="HiddenField1" runat="server" />
-                <ajaxToolkit:ModalPopupExtender ID="ModalPopupExtender1" 
-                                                runat="server" 
-                                                BehaviorID="popup" 
-                                                TargetControlID="HiddenField1" 
-                                                PopupControlID="pnlPopup" 
-                                                BackgroundCssClass="modalBackground" 
-                                                PopupDragHandleControlID="ModalPopupTitle_div" 
-                                                Drag="True" />
 
             </div>
         </ContentTemplate>

@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NominaASP</RootNamespace>
     <AssemblyName>NominaASP</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -91,7 +91,28 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Data.OData.5.2.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1404.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1404.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1404.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1404.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebDesign, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1404.0\lib\net40\Microsoft.ReportViewer.WebDesign.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1404.0\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.WindowsAzure.Configuration">
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.8.0.0\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
     </Reference>
@@ -537,12 +558,22 @@
       <LastGenOutput>NominaModel.cs</LastGenOutput>
       <DependentUpon>NominaModel.edmx</DependentUpon>
     </Content>
-    <Content Include="config\appSettings.lockton.config" />
-    <Content Include="config\connectionStrings.lockton.config" />
+    <Content Include="config\appSettings.lockton.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="config\connectionStrings.lockton.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="config\appSettings.risk.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="config\connectionStrings.risk.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="config\appSettings.risk.local.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="config\connectionStrings.risk.local.config">
       <SubType>Designer</SubType>
     </Content>
     <None Include="Properties\PublishProfiles\lockton smarter asp.net.pubxml" />
@@ -573,6 +604,19 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Site.css" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Styles\ajaxControlToolkit.css" />
     <Content Include="Styles\tables.css" />
     <Content Include="Styles\general.css" />
@@ -590,6 +634,7 @@
     </Content>
     <Content Include="Word\ArcEmpleados\plantillas\basicaGlobex.docx" />
     <Content Include="Word\ArcEmpleados\plantillas\basicaRisk.docx" />
+    <Content Include="webconfig.mssql.reportingservices.old" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\Login.aspx.cs">
@@ -1054,6 +1099,7 @@
     <Compile Include="Site2.master.designer.cs">
       <DependentUpon>Site2.master</DependentUpon>
     </Compile>
+    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="ViewModels\VacacionesConsulta\VacacionesConsulta.cs" />
     <Compile Include="ViewModels\WebApi\VacacionesConsulta.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
@@ -1086,6 +1132,7 @@
     <Content Include="Temp\RecibosPago\LVzla\RecibosPago.docx" />
     <Content Include="Temp\RecibosPago\RISK\RecibosPago.docx" />
     <Content Include="Temp\VacacionesDiasPendientes_manuel.xlsx" />
+    <Content Include="Temp\RecibosPago\RiskVz\RecibosPago.docx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1107,7 +1154,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Nomina\Nomina\Nomina.rdlc" />
-    <EmbeddedResource Include="Nomina\PrestacionesSociales\PrestacionesSociales.rdlc" />
+    <Content Include="Nomina\PrestacionesSociales\PrestacionesSociales.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

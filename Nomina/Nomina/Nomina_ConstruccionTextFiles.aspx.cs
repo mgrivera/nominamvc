@@ -129,6 +129,20 @@ namespace NominaASP.Nomina.Nomina
             int cantDiasFinSemana = 0;
             int cantDiasBancarios = 0;
 
+            // los valores desde, hasta y cantDias pueden ser null, para nóminas super viejas. En estos casos, excepcionales, construímos estos valores antes de continuar 
+            if (!header.Desde.HasValue || !header.Hasta.HasValue || !header.CantidadDias.HasValue)
+            {
+                DateTime desde;
+                DateTime hasta;
+                short cantidadDias;
+
+                calcularDesdeHastaCantidadDias(header.FechaNomina, header.Tipo, out desde, out hasta, out cantidadDias);
+
+                header.Desde = desde;
+                header.Hasta = hasta;
+                header.CantidadDias = cantidadDias; 
+            }
+
             Nomina.DeterminarCantidadDiasFeriadosEnPeriodo(context,
                                                     header.Desde.Value,
                                                     header.Hasta.Value,
@@ -262,6 +276,25 @@ namespace NominaASP.Nomina.Nomina
                 else
                     cantidadPaginas = Convert.ToInt32(Math.Truncate(p) + 1);
 
+                DateTime? desde = n.Desde;
+                DateTime? hasta = n.Hasta;
+                short? cantidadDias = n.CantidadDias; 
+
+                // los valores desde, hasta y cantDias pueden ser null, para nóminas super viejas. 
+                // En estos casos, excepcionales, construímos estos valores antes de continuar 
+                if (!desde.HasValue || !hasta.HasValue || !cantidadDias.HasValue)
+                {
+                    DateTime desde2;
+                    DateTime hasta2;
+                    short cantidadDias2;
+
+                    calcularDesdeHastaCantidadDias(n.FechaNomina, n.TipoNomina, out desde2, out hasta2, out cantidadDias2);
+
+                    desde = desde2;
+                    hasta = hasta2;
+                    cantidadDias = cantidadDias2;
+                }
+
                 // nótese como ordenamos primero por tipo, para que se muestren asig/deducc, y luego por número único, que es un identity (pk). Al 
                 // hacerlo, leemos en el mismo orden que se registraron los rubros al ser calculada la nómina. Primero los sueldos (hab/fin semana/...), 
                 // y, para deducciones, primero la deducción por anticipo en la 1ra. quincena, cuando existe 
@@ -343,9 +376,9 @@ namespace NominaASP.Nomina.Nomina
                                     break; 
                             }
                             
-                        TextReplacer.SearchAndReplace(doc, "<Desde>", n.Desde.Value.ToString("dd-MMM-yyyy"), false);
-                        TextReplacer.SearchAndReplace(doc, "<Hasta>", n.Hasta.Value.ToString("dd-MMM-yyyy"), false);
-                        TextReplacer.SearchAndReplace(doc, "<CantidadDias>", n.CantidadDias.Value.ToString(), false);
+                        TextReplacer.SearchAndReplace(doc, "<Desde>", desde.Value.ToString("dd-MMM-yyyy"), false);
+                        TextReplacer.SearchAndReplace(doc, "<Hasta>", hasta.Value.ToString("dd-MMM-yyyy"), false);
+                        TextReplacer.SearchAndReplace(doc, "<CantidadDias>", cantidadDias.Value.ToString(), false);
                         TextReplacer.SearchAndReplace(doc, "<TipoNomina>", tipoNominaDescripcion, false);
                         TextReplacer.SearchAndReplace(doc, "<FechaIngresoEmpleado>", n.FechaIngresoEmpleado.ToString("dd-MMM-yyyy"), false);
 
@@ -353,7 +386,7 @@ namespace NominaASP.Nomina.Nomina
                         // la clase Nomina contiene muchas funciones necesarias para el cálculo de la nómina 
                         // usamos la siguiente función para obtener el sueldo del empleado 
                         decimal sueldoEmpleado = 0, sueldoDiarioEmpleado = 0; 
-                        sueldoEmpleado = Nomina.DeterminarSueldoEmpleado(context, n.EmpleadoID, n.Desde.Value);
+                        sueldoEmpleado = Nomina.DeterminarSueldoEmpleado(context, n.EmpleadoID, desde.Value);
 
                         sueldoDiarioEmpleado = sueldoEmpleado / 30;
 
@@ -861,6 +894,39 @@ namespace NominaASP.Nomina.Nomina
         protected void ObtenerEmails_LinkButton_Click(object sender, EventArgs e)
         {
             EnviarEmailsAEmpleados(); 
+        }
+
+        private void calcularDesdeHastaCantidadDias(DateTime fechaNomina, String tipoNomina, out DateTime desde, out DateTime hasta, out short cantidadDias)
+        {
+            desde = new DateTime();
+            hasta = new DateTime();
+            cantidadDias = 0;
+
+            int year = fechaNomina.Year;
+            int month = fechaNomina.Month;
+            int day = fechaNomina.Day;
+
+            if (tipoNomina == "M")
+            {
+                desde = new DateTime(year, month, 1);                                        // 1er. día del mes 
+                hasta = new DateTime(year, month, DateTime.DaysInMonth(year, month));        // último día del mes 
+                cantidadDias = 30;
+            }
+            else if (tipoNomina == "Q")
+            {
+                if (day == 15)
+                {
+                    desde = new DateTime(year, month, 1);                                    // 1er. día del mes 
+                    hasta = new DateTime(year, month, 15);                                   // 15 del mes 
+                    cantidadDias = 15;
+                }
+                else
+                {
+                    desde = new DateTime(year, month, 16);                                   // 1er. día del mes 
+                    hasta = new DateTime(year, month, DateTime.DaysInMonth(year, month));    // último día del mes 
+                    cantidadDias = 15;
+                }
+            }
         }
     }
 }

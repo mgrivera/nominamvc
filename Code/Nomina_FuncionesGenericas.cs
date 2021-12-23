@@ -34,7 +34,6 @@ namespace NominaASP.Code
             decimal? monto; 
 
             // leemos y sumamos en la nómina (tNomina) todos los rubros que corresopndan a Salario en el período indicado ... 
-
             monto = dbContext.tNominas.Where(n => n.Empleado == numeroEmpleado && 
                                                   n.tNominaHeader.FechaNomina >= desde && 
                                                   n.tNominaHeader.FechaNomina <= hasta && 
@@ -43,14 +42,12 @@ namespace NominaASP.Code
 
 
             // nótese el parámetro que indica si se debe o no incluir el monto del bono (de existir en el período) en el salario ... 
-
             if (!incluirMontoBonoVacacionalSiExisteEnPeriodo)
             {
                 decimal? montoBonoVacacional;
 
                 // nótese como *solo* restamos el bono vacacional si está marcado como sueldo o salario; de no ser así, igual nunca sería leído 
                 // por el query anterior ... 
-
                 montoBonoVacacional = dbContext.tNominas.Where(n => n.Empleado == numeroEmpleado &&
                                                                n.tNominaHeader.FechaNomina >= desde &&
                                                                n.tNominaHeader.FechaNomina <= hasta &&

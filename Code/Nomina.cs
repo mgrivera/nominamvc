@@ -2542,7 +2542,6 @@ namespace NominaASP.Code
         habiles = habiles - finesSemana - feriados - bancarios; 
     }
 
-
         public class NominaItem
         {
             public int EmpleadoID { get; set; }

@@ -9,8 +9,9 @@
        <script type="text/javascript">
            function PopupWin(url, w, h) {
                ///Parameters url=page to open, w=width, h=height
-               myWindow = window.open(url, "external2", "width=" + w + ",height=" + h + ",resizable=yes,scrollbars=yes,status=no,location=no,toolbar=no,menubar=no,top=10px,left=8px");
-               myWindow.focus();
+               var left = parseInt((screen.availWidth / 2) - (w / 2));
+               var top = parseInt((screen.availHeight / 2) - (h / 2));
+               window.open(url, "external", "width=" + w + ",height=" + h + ",resizable=yes,scrollbars=yes,status=no,location=no,toolbar=no,menubar=no,left=" + left + ",top=" + top + "screenX=" + left + ",screenY=" + top);
            }
            function RefreshPage() {
                window.document.getElementById("RebindFlagSpan").firstChild.value = "1";

@@ -89,29 +89,21 @@ namespace NominaASP.Code
                 cantidadMesesServicio = cantidadMesesServicio + 1;
 
                 // la ley debe comenzar a aplicarse a partir del 19-jun-97
-
                 if (empleado.FechaIngreso >= new DateTime(1997, 7, 19))
 
                     // al tomar la parte entera de la cantidad de días entre 360, obtenemos la cantidad
                     // de años completos (por alguna razón, DateDiff regresa 8 entre, por ejemplo,
                     // 7-19-1997 y 3-31-2005. La cantidad de años en verdad es: 7 y pico.
-
                     cantidadAnosServicioParaPrestaciones = (hasta - empleado.FechaIngreso).Days / 360;
                 else
                     cantidadAnosServicioParaPrestaciones = (hasta - new DateTime(1997, 7, 19)).Days / 360;
 
-
                 // si el empleado no tiene aún 4 meses de servicio, no cobra prestaciones
                 // CAMBIA en la nueva ley!! ahora el empleado cobra a partir del 1er. mes ... 
-
-
-                //if (cantidadMesesServicio < 2)
-                //    continue; 
 
                 // vamos a determinar ahora la cantidad de meses trabajados por el empleado en el período de cálculo
                 // el empleado pudo haber trabajado la cantidad completa de meses (caso usual), o pudo haber trabajado 
                 // menos (caso inusual); en este último caso, determinamos la cantidad de meses y días trabajados 
-
                 cantidadMesesTrabajadosPeriodo = 0;
                 cantidadDiasTrabajadosPeriodo = 0;
 
@@ -121,7 +113,6 @@ namespace NominaASP.Code
                     {
                         // el empleado esta activo desde antes del período de prestaciones; consideramos que ha ganado todos sus días de 
                         // prestaciones ... 
-
                         cantidadMesesTrabajadosPeriodo = cantidadMesesPeriodoPrestaciones;
                     }
                     else
@@ -144,7 +135,6 @@ namespace NominaASP.Code
                     }
                 }
 
-
                 // -----------------------------------------------------------------------------------------------------------
                 // ahora que tenemos la cantidad de meses y días trabajados por el empleado en el período de cálculo, 
                 // determinamos sus prestaciones; nota: el caso común es 3 meses en el período de cálculo; el caso 
@@ -153,9 +143,8 @@ namespace NominaASP.Code
                     empleado.FechaIngreso).Days / 360;
 
                 // ----------------------------------------------------------------------------------------------------------
-                // la función que sigue determina el salario para el empleado, para el mes del final del período de calculo 
+                // la función que sigue determina el salario para el empleado, para el mes *final* del período de calculo 
                 // (recuérdese que el salario base a usar en el cálculo de las prestaciones, es el último del período indicado) 
-
                 string errorMessage = "";
                 decimal salarioEmpleado = 0;
                 decimal montoCestaTickets = 0;
