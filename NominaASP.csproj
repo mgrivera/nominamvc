@@ -343,6 +343,10 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="ControlAcceso\Administracion\AgregarUsuario.aspx" />
+    <Content Include="ControlAcceso\Administracion\AsociarRolesUsuarios.aspx" />
+    <Content Include="ControlAcceso\Administracion\Roles.aspx" />
+    <Content Include="ControlAcceso\Publico\CambiarPassword.aspx" />
     <Content Include="Empleados\Consulta\EmpleadosConsulta.aspx" />
     <Content Include="Empleados\Faltas\EmpleadosFaltasConsulta.aspx" />
     <Content Include="Empleados\Faltas\EmpleadosFaltas_OpcionesReporte.aspx" />
@@ -384,6 +388,7 @@
       <DependentUpon>NominaModel.edmx</DependentUpon>
     </Content>
     <Content Include="MasterPage_Simple.Master" />
+    <Content Include="Pictures\arrow_left_20x20.png" />
     <Content Include="Pictures\arrow_right_13x11.png" />
     <Content Include="Pictures\Delete.png" />
     <Content Include="Pictures\Delete_Gray.png" />
@@ -395,6 +400,8 @@
     <Content Include="Pictures\filter_25x25.png" />
     <Content Include="Pictures\first_16x16.gif" />
     <Content Include="Pictures\Gears_25x25.png" />
+    <Content Include="Pictures\help_20x20.png" />
+    <Content Include="Pictures\house_20x20.png" />
     <Content Include="Pictures\img\animated1.gif" />
     <Content Include="Pictures\img\circle-ball-dark-antialiased.gif" />
     <Content Include="Pictures\img\jquery.gif" />
@@ -576,6 +583,7 @@
     <Content Include="config\connectionStrings.risk.local.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="MasterPage_Simple_WithButtons.master" />
     <None Include="Properties\PublishProfiles\lockton smarter asp.net.pubxml" />
     <None Include="Properties\PublishProfiles\risk smarter asp.net.pubxml" />
     <None Include="Scripts\jquery 2.1\jquery-2.1.0.intellisense.js" />
@@ -714,6 +722,34 @@
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ControlAcceso\Administracion\AgregarUsuario.aspx.cs">
+      <DependentUpon>AgregarUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAcceso\Administracion\AgregarUsuario.aspx.designer.cs">
+      <DependentUpon>AgregarUsuario.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAcceso\Administracion\AsociarRolesUsuarios.aspx.cs">
+      <DependentUpon>AsociarRolesUsuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAcceso\Administracion\AsociarRolesUsuarios.aspx.designer.cs">
+      <DependentUpon>AsociarRolesUsuarios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAcceso\Administracion\Roles.aspx.cs">
+      <DependentUpon>Roles.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAcceso\Administracion\Roles.aspx.designer.cs">
+      <DependentUpon>Roles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAcceso\Publico\CambiarPassword.aspx.cs">
+      <DependentUpon>CambiarPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ControlAcceso\Publico\CambiarPassword.aspx.designer.cs">
+      <DependentUpon>CambiarPassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\ArcEmpleadosController.cs" />
     <Compile Include="Controllers\ArcEmpleadosWebApiController.cs" />
     <Compile Include="Controllers\VacacionesConsultaController.cs" />
@@ -779,6 +815,13 @@
     </Compile>
     <Compile Include="MasterPage_Simple.Master.designer.cs">
       <DependentUpon>MasterPage_Simple.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPage_Simple_WithButtons.master.cs">
+      <DependentUpon>MasterPage_Simple_WithButtons.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MasterPage_Simple_WithButtons.master.designer.cs">
+      <DependentUpon>MasterPage_Simple_WithButtons.master</DependentUpon>
     </Compile>
     <Compile Include="Models\Asiento.cs">
       <DependentUpon>NominaModel.tt</DependentUpon>
