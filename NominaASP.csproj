@@ -584,6 +584,12 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="MasterPage_Simple_WithButtons.master" />
+    <Content Include="config\connectionStrings.xl.local.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="config\appSettings.xl.local.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\lockton smarter asp.net.pubxml" />
     <None Include="Properties\PublishProfiles\risk smarter asp.net.pubxml" />
     <None Include="Scripts\jquery 2.1\jquery-2.1.0.intellisense.js" />
