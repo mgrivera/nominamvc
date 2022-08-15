@@ -18,7 +18,6 @@ namespace NominaASP.Code
             errorMessage = ""; 
             nominaHeaderID = nominaHeaderID_Param;
 
-
             // establecemos una conexión a mongodb; específicamente, a la base de datos del programa contabM; allí se registrará 
             // todo en un futuro; además, ahora ya están registradas las vacaciones ... 
             string contabm_mongodb_connection = System.Web.Configuration.WebConfigurationManager.AppSettings["contabm_mongodb_connectionString"];
@@ -60,7 +59,6 @@ namespace NominaASP.Code
             ParametrosNomina parametrosNomina; 
 
             // lo primero que hacemos es leer el header ... 
-
             dbNominaEntities context = new dbNominaEntities(); 
 
             nominaHeader = context.tNominaHeaders.Include("tGruposEmpleado").Where(n => n.ID == nominaHeaderID).FirstOrDefault();
@@ -97,7 +95,6 @@ namespace NominaASP.Code
             }
 
             // el usuario debe indicar el valor para el sueldo mínimo, solo si se usa en las deducciones registradas ... 
-
             DeduccionesNomina deduccion = context.DeduccionesNominas.Where(d => d.TopeBase == "SalMin").FirstOrDefault();
 
             Parametros_Nomina_SalarioMinimo parametroNominaSalarioMinimo = null; 
@@ -107,16 +104,12 @@ namespace NominaASP.Code
                 // aunque leemos el salario mínimo que corresonde aquí, para hacerlo una sola vez, validamos (not null) solo cuando lo 
                 // necesitemos más abajo en este código. Aunque alguna deducción lo pueda necesitar, no necesariamente es una que corresponda 
                 // a esta nómina en particular ... 
-
                 parametroNominaSalarioMinimo = context.Parametros_Nomina_SalarioMinimo.Where(p => p.Desde <= nominaHeader.Desde.Value).
                                                                                        OrderByDescending(p => p.Desde).
                                                                                        FirstOrDefault();
             }
 
-
-
             // si podemos leer alguna cuota de préstamo a aplicar, debe existir un rubro definido para hacerlo en Parametros ... 
-
             tCuotasPrestamo cuota = context.tCuotasPrestamos.Where(p => p.FechaCuota >= nominaHeader.Desde.Value && p.FechaCuota <= nominaHeader.Hasta.Value).
                                                              Where(p => p.PagarPorNominaFlag != null && p.PagarPorNominaFlag.Value).
                                                              FirstOrDefault();
@@ -133,7 +126,6 @@ namespace NominaASP.Code
 
             // nótese como la ejecutación de la nómina depende, básicamente, del tipo; aunque todas las nóminas, independientemente de su tipo, 
             // se ejecutan básicamente en la misma forma, el tipo determinará que empleados, período, etc., usar ... 
-
             Nomina_FuncionesGenericas funcionesGenericasNomina = new Nomina_FuncionesGenericas();
 
             switch (nominaHeader.Tipo)
@@ -156,7 +148,6 @@ namespace NominaASP.Code
                 case "U":           // utilidades 
                     {
                         // debe existir un registro de utilidades al cual corresponda esta nómina 
-
                         Utilidade utilidades = context.Utilidades.Where(u => u.ID == nominaHeader.ProvieneDe_ID).FirstOrDefault();
                         if (utilidades == null)
                         {
@@ -266,7 +257,9 @@ namespace NominaASP.Code
 
             Nomina_FuncionesGenericas funcionesGenericasNomina = new Nomina_FuncionesGenericas(); 
 
-            foreach (NominaASP.Models.tEmpleado empleado in grupoNomina.tdGruposEmpleados.Where(e => !e.SuspendidoFlag && e.tEmpleado.Status == "A").
+            foreach (NominaASP.Models.tEmpleado empleado in grupoNomina.tdGruposEmpleados.Where(e => !e.SuspendidoFlag && 
+                                                                                                      e.tEmpleado.Status == "A" && 
+                                                                                                      e.tEmpleado.FechaIngreso <= nominaHeader.Desde.Value).
                                                                                           Select(e => e.tEmpleado))
             {
                 cantidadEmpleados++;
@@ -280,6 +273,12 @@ namespace NominaASP.Code
                 {
                     cantidadEmpleadosEnVacaciones++; 
                     continue;
+                } else
+                {
+                    if (errorMessage != "") 
+                    {
+                        return; 
+                    }
                 }
 
                 // TODO: aplicar salario y faltas 
@@ -307,7 +306,6 @@ namespace NominaASP.Code
 
                 if (errorMessage != "")
                     return;
-
 
                 cantidadFaltasAplicadas += cantFaltasAplicadasEmpleado; 
 
@@ -363,21 +361,30 @@ namespace NominaASP.Code
                     return;
 
                 // aplicamos las deducciones obligatorias, solo si el usuario lo indica en el registro de nómina (header) 
-                if (nominaHeader.AgregarDeduccionesObligatorias) 
+                if (nominaHeader.AgregarDeduccionesObligatorias)
+                {
                     DeduccionesObligatorias(context,
-                                            _mongoDataBase, 
+                                            _mongoDataBase,
                                             nominaHeader,
                                             empleado,
                                             parametroNominaSalarioMinimo,
                                             Nomina_List,
-                                            out errorMessage); 
+                                            out errorMessage);
+
+                    if (errorMessage != "")
+                        return;
+                }
+                    
 
                 // aplicar ISLR 
                 ISLR(context,
                      nominaHeader,
                      empleado,
                      Nomina_List,
-                     out errorMessage); 
+                     out errorMessage);
+
+                if (errorMessage != "")
+                    return;
             }
 
             funcionesGenericasNomina = null; 
@@ -922,28 +929,37 @@ namespace NominaASP.Code
                                           tEmpleado empleado, 
                                           out string errorMessage) 
         {
-            // determinamos si un empleado está de vacaciones en el período de la nómina 
-            errorMessage = "";
+            try
+            {
+                // determinamos si un empleado está de vacaciones en el período de la nómina 
+                errorMessage = "";
 
-            var vacacionMongoCollection = mongoDataBase.GetCollection<vacacion>("vacaciones");
+                var vacaciones = mongoDataBase.GetCollection<vacacion>("vacaciones");
 
-            var vacaciones = mongoDataBase.GetCollection<vacacion>("vacaciones");
+                var builder = Builders<vacacion>.Filter;
+                var filter = builder.And(
+                    builder.Eq(x => x.empleado, empleado.Empleado),
+                    builder.Eq(x => x.obviarEnLaNominaFlag, true),
+                    builder.Lte(x => x.desactivarNominaDesde, nominaHeader.FechaNomina.ToUniversalTime()),
+                    builder.Gte(x => x.desactivarNominaHasta, nominaHeader.FechaNomina.ToUniversalTime()),
+                    builder.Eq(x => x.cia, empleado.Cia)
+                    );
 
-            var builder = Builders<vacacion>.Filter;
-            var filter = builder.And(
-                builder.Eq(x => x.empleado, empleado.Empleado),
-                builder.Eq(x => x.obviarEnLaNominaFlag, true),
-                builder.Lte(x => x.desactivarNominaDesde, nominaHeader.FechaNomina.ToUniversalTime()),
-                builder.Gte(x => x.desactivarNominaHasta, nominaHeader.FechaNomina.ToUniversalTime()),
-                builder.Eq(x => x.cia, empleado.Cia)
-                ); 
+                var vacacion = vacaciones.Find<vacacion>(filter).FirstOrDefault();
 
-            var vacacion = vacaciones.Find<vacacion>(filter).FirstOrDefault();
+                if (vacacion != null)
+                    return true;
 
-            if (vacacion != null)
-                return true; 
+                return false;
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                if (ex.InnerException != null)
+                    errorMessage += "<br /><br />" + ex.InnerException.Message;
 
-            return false; 
+                return false; 
+            }
         }
 
         public void AgregarSueldo(dbNominaEntities context,
@@ -963,7 +979,6 @@ namespace NominaASP.Code
             // leemos y aplicamos el sueldo del empleado, si se indica así en nominaHeader; 
             // además, aplicamos una deducción por la cantidad de días de vacaciones ... nota: ésto ocurre cuando el empleado regresa de vacaciones 
             // y se le adelantó alguna cantidad de días de esta nómina, se debe aplicar esta deducción en esta nómina ... 
-
             errorMessage = "";
             cantidadFaltasAplicadas = 0;
             empleadoRegresaVacacionesFlag = false;
@@ -986,8 +1001,7 @@ namespace NominaASP.Code
 
             if (!funcionesGenericasNomina.ObtenerRubro(context, 1, out rubroSueldoEmpleados))
             {
-                errorMessage = "Error: aparentemente, no se ha definido el rubro que corresponde " +
-                                "al sueldo básico de los empleados." +
+                errorMessage = "Error: aparentemente, no se ha definido el rubro que corresponde al sueldo básico de los empleados. <br />" +
                                 "Ud. debe registrar cual rubro corresponde a este concepto en la maestra de rubros.";
                 return;
             }
@@ -996,7 +1010,6 @@ namespace NominaASP.Code
             {
                 // agregamos un item a la nómina (lista) con el sueldo del empleado 
                 // feb/2017: separamos el sueldo del empleado en la cantidad de 'tipos' de días: hábiles, feriados, sab/dom y bancarios ... 
-
                 int cantidadDiasTotales = cantDiasHabiles + cantDiasBancarios + cantDiasFeriados + cantDiasFinSemana; 
 
                 string descripcionRubroSbas = string.IsNullOrEmpty(nominaHeader.DescripcionRubroSueldo) ? "Sueldo básico" : nominaHeader.DescripcionRubroSueldo; 
@@ -2483,24 +2496,6 @@ namespace NominaASP.Code
                 Nomina_List.Add(nominaItem);
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public void DeterminarCantidadDiasFeriadosEnPeriodo(dbNominaEntities context,
                                                          DateTime desde, 

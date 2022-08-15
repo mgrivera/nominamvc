@@ -200,7 +200,6 @@ namespace NominaASP.Nomina.Nomina
         protected void btnOk_Click(object sender, EventArgs e)
         {
             // cuando el usuario confirma la ejecución de la nómina, regresamos a este método ... 
-
             int nominaHeaderID = 0; 
 
             if (this.Nomina_GridView.SelectedDataKey != null)

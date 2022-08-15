@@ -5,6 +5,7 @@ using System.Web;
 //using NominaASP.Models.Nomina;
 using NominaASP.Models;
 using System.Data.Entity.Infrastructure;
+using MongoDB.Driver;
 
 namespace NominaASP.Code
 {
@@ -196,10 +197,7 @@ namespace NominaASP.Code
                     return true;
                 }
 
-
-
             // no encontramos un registro de definición de días de vacaciones para el empleado; regresamos con un error ... 
-
             errorMessage = "Error: no existe un registro en las tablas de 'días de vacaciones' para empleados con una cantidad de años igual a " +
                 cantidadAnosServicio.ToString() + "." +
                 "Ud. debe agregar un registro en esta tabla para la cantidad de años mencionada. ";
@@ -207,7 +205,6 @@ namespace NominaASP.Code
             return false;
         }
 
-      
         public bool DeterminarMontoSueldoSalarioNominasRelacionadas(dbNominaEntities dbContext,
                                                                     NominaASP.Models.tNominaHeader nominaHeader, 
                                                                     int numeroEmpleado,
@@ -219,7 +216,6 @@ namespace NominaASP.Code
             // este mecanismo es usado, normalmente, en el cálculo de deducciones, las cuales se aplican 
             // a bases de salario o sueldo que cubren más de la nómina que se está ejecutando (en realidad, 
             // normalmente esto ocurre solo en nóminas quincenales) 
-
             montoSueldoOSalario = 0;
             errorMessasge = "";
 
@@ -272,7 +268,6 @@ namespace NominaASP.Code
 
             // buscamos el sueldo más reciente para el período de pago 
             // nótese que lo leemos y determinamos aunque no lo agreguemos, para usarlo en registro de faltas y vacaciones ... 
-
             decimal? sueldoEmpleado = dbContext.Empleados_Sueldo.Where(s => s.Empleado == empleado.Empleado && s.Desde <= nominaHeader.Desde.Value).
                                                                  OrderByDescending(s => s.Desde).
                                                                  Select(s => s.Sueldo).
@@ -308,21 +303,23 @@ namespace NominaASP.Code
             }
 
             // determinamos la cantidad de días de utilidades, para determinar su monto completo de utilidades 
-
             // nótese como debe existir un registro de definición de utilidades, para poder leer la cantidad de días que se aplican para la empresa 
-
             Utilidade utilidades = (dbContext.Utilidades.Where(u => u.tGruposEmpleado.Grupo == nominaHeader.tGruposEmpleado.Grupo).
                                                          Where(u => u.FechaNomina <= nominaHeader.FechaNomina).OrderByDescending(u => u.FechaNomina)).FirstOrDefault();
 
             if (utilidades == null)
             {
-                errorMessage = "<b>Error:</b> no hemos podido leer un registro de <em>'definición de utilidades'</em> que aplique a esta nómina de pago.<br />" +
-                    "Ud. debe registrar un registro de <em>'definición de utilidades'</em> que pueda ser usado por esta nómina de pago.";
+                errorMessage = "<b>Error:</b> no hemos podido leer un registro de <em>'definición de utilidades'</em> que corresponda a esta nómina de pago.<br />" +
+                                "Es necesario en este caso, pues es usado en el cálculo del <em>salaario integral</em> de los empleados.<br /><br />" +
+                                "Ud. debe grabar un registro de <em>'definición de utilidades'</em> que pueda ser usado por esta nómina de pago, " +
+                                "para determinar la cantidad de días de utilidades y usar este valor en el cálculo del salario integral de los empleados.<br /><br />" +
+                                "<b>Nota:</b> el registro de utilidades que Ud. grabe debe tener una fecha de nómina <b>anterior o igual</b> a la fecha de nómina de esta nómina (" 
+                                + nominaHeader.FechaNomina.ToString("d-MMM-yyyy") + ")."; 
+                                ;
                 return false; 
             }
 
             // nótese que el usuario puede definir utilidades para períodos diferentes a un año (ejemplo: utilidades que se pagan cada 6 meses) 
-
             int cantidadDiasUtilidades = (360 * utilidades.CantidadDiasUtilidades) / utilidades.CantidadDiasPeriodoPago; 
 
             // grabamos un registro en la tabla de salario integral, para el empleado específico ... 
@@ -333,7 +330,6 @@ namespace NominaASP.Code
             var objectContext = (dbContext as IObjectContextAdapter).ObjectContext;
             objectContext.ExecuteStoreCommand("Delete From tNomina_SalarioIntegral Where HeaderID = {0} And Empleado = {1}",
                                           new Object[] { nominaHeader.ID, empleado.Empleado }); 
-
 
             tNomina_SalarioIntegral salarioIntegral = new tNomina_SalarioIntegral(); 
             
@@ -405,6 +401,5 @@ namespace NominaASP.Code
 
             return true;
         }
-
     }
 }
